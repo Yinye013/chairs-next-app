@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useInView, useAnimate } from "framer-motion";
+import { motion } from "framer-motion";
+import { Typewriter } from "react-simple-typewriter";
 
 const Herosection = () => {
   const headingPrimary: string = "For a better life, we design and create ";
@@ -13,20 +14,26 @@ const Herosection = () => {
       <main className="container">
         <div className="grid lg:grid-cols-2 gap-14">
           <div className="pt-[9.6rem]">
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 75 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.2, delay: 0 }}
-              className="heading-primary"
-            >
-              {headingPrimary}
-              <span className="text-green-700">better seats.</span>
-            </motion.div>
-            <p className="text-[1.8rem] mt-[2.2rem] tracking-wide">
+            <div className="mb-[2rem]">
+              <h1 className="heading-primary">{headingPrimary}</h1>
+              <span className="heading-primary text-green-700 inline-block">
+                <Typewriter
+                  cursor
+                  cursorBlinking
+                  delaySpeed={1000}
+                  deleteSpeed={50}
+                  loop={0}
+                  typeSpeed={100}
+                  words={[
+                    "better seats.",
+                    "comfort for you.",
+                    "quality assurance.",
+                  ]}
+                />
+              </span>
+            </div>
+
+            <p className="text-[1.8rem] mb-[2rem] tracking-wide">
               {heroDescription}
             </p>
 
@@ -38,7 +45,7 @@ const Herosection = () => {
               LEARN MORE &darr;
             </Link>
           </div>
-          <div className="self-end">
+          <div>
             <Image
               src={"/assets/images/hero.jpg"}
               alt={"hero image"}

@@ -15,7 +15,7 @@ const useMultipleAnimations = (inView: boolean, animation: any) => {
     }
     if (!inView) {
       animation.start({
-        x: 25,
+        y: 25,
         opacity: 0,
       });
     }

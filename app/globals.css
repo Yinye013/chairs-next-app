@@ -47,7 +47,7 @@ header {
   letter-spacing: 0.75px;
 }
 .heading-primary {
-  @apply font-bold text-5xl mb-12 leading-[1.2];
+  @apply font-bold text-5xl leading-[1.2];
   font-size: 5.2rem;
 }
 .heading-secondary {
