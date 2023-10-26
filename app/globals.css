@@ -2,14 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  font-family: "Inter", sans-serif;
-}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219 220;
   --background-end-rgb: 255, 255, 255;
+  --swiper-theme-color: #15803d;
 }
+* {
+  font-family: "Inter", sans-serif;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -47,13 +49,23 @@ header {
   letter-spacing: 0.75px;
 }
 .heading-primary {
-  @apply font-bold text-5xl leading-[1.2];
-  font-size: 5.2rem;
+  @apply font-bold text-5xl leading-[1.2] text-[4rem] text-center lg:text-[5.2rem] text-left;
 }
 .heading-secondary {
   @apply text-[3rem] font-[600] mb-[5rem] leading-tight;
   color: #444;
 }
 .heading-tertiary {
-  @apply font-bold mb-[1.5rem] text-[1.9rem];
+  @apply font-bold mb-[2.3rem] text-[1.9rem] tracking-wide;
+}
+.gridding {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 9.6rem;
+  background-image: linear-gradient(to bottom right, #166534, #15803d);
+}
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  margin-top: 3rem;
 }

@@ -19,7 +19,7 @@ const Navbar = () => {
 
         <nav>
           <ul
-            className="flex gap-16 
+            className="hidden md:block lg:flex block gap-[4.8rem]
           "
           >
             {links.map((link) => (
