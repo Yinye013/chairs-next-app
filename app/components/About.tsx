@@ -20,7 +20,7 @@ const About = () => {
       <div className="container">
         <p className="subheading">what sets our chairs apart</p>
         <h2 className="heading-secondary">What Makes Our Chairs Unique?</h2>
-        <div className="grid grid-cols-3 gap-20">
+        <div className="grid grid-cols-1 gap-20 lg:grid-cols-3 ">
           <div className="pt-4 pb-4">
             <GiFizzingFlask size="50px" color="#15803D" />
             <h3 className="heading-tertiary mt-5">Science Meets Design</h3>

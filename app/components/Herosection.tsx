@@ -16,30 +16,32 @@ const Herosection = () => {
           <div className="pt-[9.6rem]">
             <div className="mb-[2rem]">
               <h1 className="heading-primary">{headingPrimary}</h1>
-              <span className="heading-primary text-green-700 inline-block">
-                <Typewriter
-                  cursor
-                  cursorBlinking
-                  delaySpeed={1000}
-                  deleteSpeed={50}
-                  loop={0}
-                  typeSpeed={100}
-                  words={[
-                    "better seats.",
-                    "comfort for you.",
-                    "quality assurance.",
-                  ]}
-                />
-              </span>
+              <div className="flex justify-center lg:justify-start">
+                <span className="heading-primary text-center text-green-700 inline-block lg:text-left">
+                  <Typewriter
+                    cursor
+                    cursorBlinking
+                    delaySpeed={1000}
+                    deleteSpeed={50}
+                    loop={0}
+                    typeSpeed={100}
+                    words={[
+                      "better seats.",
+                      "comfort for you.",
+                      "quality assurance.",
+                    ]}
+                  />
+                </span>
+              </div>
             </div>
 
-            <p className="text-[1.8rem] mb-[2rem] tracking-wide">
+            <p className="text-[1.8rem] text-center mb-[2rem] tracking-wide lg:text-left">
               {heroDescription}
             </p>
 
             <Link
               href="/"
-              className="inline-block mt-[2.2rem] text-white bg-green-700 text-[1.8rem] py-6 px-14 rounded-lg hover:bg-green-800 transition-all"
+              className="inline-block mt-[2.2rem] text-center text-white bg-green-700 text-[1.8rem] py-6 px-14 rounded-lg hover:bg-green-800 transition-all lg:text-left"
             >
               {" "}
               LEARN MORE &darr;
