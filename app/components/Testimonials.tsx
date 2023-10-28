@@ -45,8 +45,8 @@ const Testimonials = () => {
                     <Image
                       src={test.imgPath}
                       alt="testimonial"
-                      width={500}
-                      height={300}
+                      width={400}
+                      height={400}
                       className="text-2xl rounded-xl"
                     />
                   </div>
