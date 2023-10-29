@@ -22,6 +22,6 @@ export const testArr: Array<testObj> = [
     imgPath: "/assets/testimonial-images/ivana-cajina-_7LbC5J-jw4-unsplash.jpg",
     testimonial:
       "The ethical considerations in these chair choices won me over.",
-    clientName: "Romeo C",
+    clientName: "Romeo B",
   },
 ];
