@@ -39,7 +39,7 @@ const Testimonials = () => {
               <SwiperSlide key={test.clientName}>
                 <div className="gridding py-[6rem] px-[2rem] rounded-md">
                   <div
-                    className="flex justify-center "
+                    className="flex justify-center flex-col lg:flex-row"
                     style={{ borderRadius: "100px" }}
                   >
                     <Image
