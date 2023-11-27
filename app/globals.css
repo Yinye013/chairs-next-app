@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,7 +51,7 @@ header {
   letter-spacing: 0.75px;
 }
 .heading-primary {
-  @apply font-bold text-5xl leading-[1.2] text-[4rem] text-center lg:text-[5.2rem];
+  @apply font-bold text-5xl leading-[1.2] text-[4rem] text-center lg:text-left text-[5.2rem];
 }
 .heading-secondary {
   @apply text-[3rem] font-[600] mb-[5rem] leading-tight;

@@ -7,7 +7,6 @@ import Testimonials from "./components/Testimonials";
 const page = () => {
   return (
     <>
-      <Navbar />
       <Herosection />
       <About />
       <Testimonials />
