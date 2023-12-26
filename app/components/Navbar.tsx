@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { usePathname } from "next/navigation";
+import Logo from "../ui/Logo";
+import React, { useState } from "react";
 
 const Navbar = () => {
-  const title: string = "TheChair";
-
-  const router = useRouter();
+  const pathname = usePathname();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const MENU_LINKS = [
     {
@@ -26,32 +26,32 @@ const Navbar = () => {
       name: "Login",
       link: "/login",
     },
-    {
-      name: "Sign Up",
-      link: "/about",
-    },
+    // {
+    //   name: "Sign Up",
+    //   link: "/sign-up",
+    // },
   ];
 
   return (
     <header className="flex justify-between items-center h-[9.6rem]">
-      <div className="container flex justify-between items-center">
-        <p onClick={() => router.push("/")} className="logo cursor-pointer">
-          {title} <span className="text-green-700">Shop.</span>
-        </p>
-
+      <div className="container flex justify-between items-center sticky">
+        <Logo />
         <nav>
           <ul className="hidden md:block lg:flex gap-[4.8rem]">
             {MENU_LINKS.map(({ link, name }) => (
               <Link
                 href={link}
                 key={link}
-                className="navlink text-[1.8rem] font-semibold hover:text-green-700 transition-all"
+                className={`${
+                  pathname === link && "text-[#15803d] font-bold"
+                } navlink text-[1.8rem] font-semibold hover:text-green-700 transition-all`}
               >
                 {name}
               </Link>
             ))}
           </ul>
         </nav>
+        {loggedIn ? <p>Hello, User</p> : null}
       </div>
     </header>
   );

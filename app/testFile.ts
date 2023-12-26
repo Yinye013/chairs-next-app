@@ -25,3 +25,47 @@ export const testArr: Array<testObj> = [
     clientName: "Romeo B",
   },
 ];
+
+type hitusupFiles = {
+  imgPath: string;
+  id: number;
+};
+
+export const hitusupArr: Array<hitusupFiles> = [
+  {
+    imgPath: "/assets/gridpics/gridpic1.jpg",
+    id: 1,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic2.jpg",
+    id: 2,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic3.jpg",
+    id: 3,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic4.jpg",
+    id: 4,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic5.jpg",
+    id: 5,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic6.jpg",
+    id: 6,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic7.jpg",
+    id: 7,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic8.jpg",
+    id: 8,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic9.jpg",
+    id: 9,
+  },
+];

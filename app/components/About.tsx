@@ -15,7 +15,8 @@ const About = () => {
     <motion.div
       ref={ref}
       animate={animation}
-      className="pt-[4.8rem] pb-[9.6rem]"
+      className="section-pad"
+      id="about"
     >
       <div className="container">
         <p className="subheading">what sets our chairs apart</p>

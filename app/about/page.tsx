@@ -1,13 +1,20 @@
 "use client";
 
 import Lottie from "lottie-react";
+import ChairAnimation from "@/animations/animation.json";
+import StoryAnimation from "@/animations/story.json";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import useMultipleAnimations from "../hooks/useMultipleAnimations";
 
 export default function AboutPage() {
+  let { ref, inView } = useInView();
+  const animation = useAnimation();
+  useMultipleAnimations(inView, animation);
   return (
-    <>
-      <div className="grid grid-cols-2 mt-[3.6rem]">
-        <div className="left-text">
-          <p className="subheading">ABOUT US</p>
+    <motion.div ref={ref} animate={animation}>
+      <div className="grid grid-cols-1 items-center lg:grid-cols-2  ">
+        <div className="left-text ">
           <h1 className="text-[3rem] text-[#555] font-bold tracking-wide">
             Our <span className="text-green-700">Mission</span>
           </h1>
@@ -27,21 +34,22 @@ export default function AboutPage() {
           </p>
         </div>
         <div>
-          {" "}
-          <Lottie animationData={"assets/animation.json"} />
+          <Lottie animationData={ChairAnimation} width={20} />
         </div>
       </div>
       <div>
-        <div className="text-center mt-[3rem]">
+        <div className="text-center">
           <h1 className="text-[3rem] text-[#555] font-bold tracking-wide">
             Our <span className="text-green-700">Story</span>
           </h1>
         </div>
 
-        <div className="grid grid-cols-2">
-          <div>Image</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
-            <p className="text-[1.6rem] tracking-wide mt-[3rem]">
+            <Lottie animationData={StoryAnimation} />
+          </div>
+          <div>
+            <p className="text-[1.6rem] tracking-wide mt-[3rem] pb-[2rem] ">
               In a quaint town, a disparate group of artisans and craftsmen
               serendipitously discovered a shared love for the art of
               chair-making. Recognizing the potential in their combined skills,
@@ -55,6 +63,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 }
