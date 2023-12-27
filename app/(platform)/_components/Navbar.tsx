@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "../ui/Logo";
 import React, { useState } from "react";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const pathname = usePathname();

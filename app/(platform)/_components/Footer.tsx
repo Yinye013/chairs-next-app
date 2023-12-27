@@ -5,10 +5,11 @@ import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaDribbble } from "react-icons/fa";
 import { FaPinterest } from "react-icons/fa";
-import Logo from "../ui/Logo";
-const year = new Date().getFullYear();
+import Logo from "./Logo";
 
 function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="footer-border pt-[3.8rem]">
       <div className="container flex flex-col items-center justify-center gap-[3rem] lg:flex-row justify-between mb-[3rem]">
@@ -32,9 +33,7 @@ function Footer() {
             <FaPinterest size={"30px"} />
           </Link>
         </div>
-        <p className="text-[1.4rem]">
-          Copyright &copy;{`The Chair Shop Limited, ${year}`}
-        </p>
+        <p className="text-[1.4rem]">Copyright &copy;{`The Chair Shop Limited, ${year}`}</p>
       </div>
     </footer>
   );

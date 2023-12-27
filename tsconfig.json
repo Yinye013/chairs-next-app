@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/components/Herosection.tsx",
-    "app/hooks/useLogin.ts"
+    "app/hooks/useCalls.ts"
   ],
   "exclude": ["node_modules"]
 }

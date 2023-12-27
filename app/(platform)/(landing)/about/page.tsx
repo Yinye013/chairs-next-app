@@ -5,7 +5,7 @@ import ChairAnimation from "@/animations/animation.json";
 import StoryAnimation from "@/animations/story.json";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import useMultipleAnimations from "../hooks/useMultipleAnimations";
+import useMultipleAnimations from "@/app/hooks/useMultipleAnimations";
 
 export default function AboutPage() {
   let { ref, inView } = useInView();

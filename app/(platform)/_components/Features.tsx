@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { featuresArr } from "../featuresFiles";
+import { featuresArr } from "../../utils/featuresFiles";
 import Image from "next/image";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import useMultipleAnimations from "../hooks/useMultipleAnimations";
+import useMultipleAnimations from "../../hooks/useMultipleAnimations";
 
 function Features() {
   let { ref, inView } = useInView();
@@ -19,12 +19,7 @@ function Features() {
       <div className="grid gap-[3rem] items-center grid-cols-2 lg:grid-cols-5  ">
         {featuresArr.map((feat) => (
           <div key={feat.id}>
-            <Image
-              src={feat.imgPath}
-              alt={"featured images"}
-              width={200}
-              height={200}
-            />
+            <Image src={feat.imgPath} alt={"featured images"} width={200} height={200} />
           </div>
         ))}
       </div>
