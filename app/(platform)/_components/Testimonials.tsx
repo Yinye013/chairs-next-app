@@ -6,10 +6,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
-import { testArr } from "../testFile";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import useMultipleAnimations from "../hooks/useMultipleAnimations";
+import { testArr } from "@/app/utils/testFile";
+import useMultipleAnimations from "@/app/hooks/useMultipleAnimations";
 
 const Testimonials = () => {
   let { ref, inView } = useInView();
@@ -17,11 +17,7 @@ const Testimonials = () => {
   useMultipleAnimations(inView, animation);
 
   return (
-    <motion.div
-      ref={ref}
-      animate={animation}
-      className="pt-[4.8rem] pb-[9.6rem]"
-    >
+    <motion.div ref={ref} animate={animation} className="pt-[4.8rem] pb-[9.6rem]">
       <div className="container">
         <p className="subheading">TESTIMONIALS</p>
         <h2 className="heading-secondary">What Clients Say</h2>
@@ -38,10 +34,7 @@ const Testimonials = () => {
             {testArr.map((test) => (
               <SwiperSlide key={test.clientName}>
                 <div className="gridding py-[6rem] px-[2rem] rounded-md">
-                  <div
-                    className="flex justify-center flex-col lg:flex-row"
-                    style={{ borderRadius: "100px" }}
-                  >
+                  <div className="flex justify-center flex-col lg:flex-row" style={{ borderRadius: "100px" }}>
                     <Image
                       src={test.imgPath}
                       alt="testimonial"

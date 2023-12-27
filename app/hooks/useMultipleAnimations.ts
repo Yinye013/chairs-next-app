@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+
 const useMultipleAnimations = (inView: boolean, animation: any) => {
   useEffect(() => {
     if (inView) {

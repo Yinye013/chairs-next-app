@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { hitusupArr } from "../testFile.ts";
 import { FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
+import { hitusupArr } from "@/app/utils/testFile";
 
 function page() {
   return (
@@ -22,13 +22,10 @@ function page() {
           ))}
         </div>
         <div className="hitusup grid px-[3rem]">
-          <h1 className="text-[2.5rem] lg:text-[3.6rem] text-[#fff] font-bold mb-[3.2rem]">
-            First Purchase for Free!
-          </h1>
+          <h1 className="text-[2.5rem] lg:text-[3.6rem] text-[#fff] font-bold mb-[3.2rem]">First Purchase for Free!</h1>
           <p className="text-[1.6rem] lg:text-[1.8rem] text-[#fff] mb-[4.8rem] leading-[1.5]">
-            If you’ve made it this far, you must be at least a little curious.
-            Hit any of the buttons below to become one of our esteemed
-            customers!
+            If you’ve made it this far, you must be at least a little curious. Hit any of the buttons below to become
+            one of our esteemed customers!
           </p>
           <div className="flex gap-[3rem]">
             <Link

@@ -1,5 +1,5 @@
 import supabase from "./supabase";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 type loginInputs = {
@@ -12,14 +12,12 @@ export async function login({ email, password }: loginInputs) {
     email,
     password,
   });
-
   if (error) {
     toast.error(error.message);
   }
   if (!error) {
     toast.success("Welcome");
   }
-
   console.log(data);
   return data;
 }
