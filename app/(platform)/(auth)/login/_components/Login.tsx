@@ -2,20 +2,22 @@ import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 import { useLogin } from "@/app/hooks/useCalls";
+import { login } from "@/app/services/apiAuth";
 
 export default function Login() {
   const methods = useForm();
 
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, reset } = methods;
 
   const { loginUser } = useLogin();
 
   async function onSubmit(data: any) {
     try {
-     await loginUser.mutate(data);
+      await loginUser.mutate(data);
     } catch (error) {
       console.log(error);
     }
+    reset();
   }
 
   return (
@@ -40,7 +42,7 @@ export default function Login() {
         Forgot Password?
       </Link>
 
-      <button className="text-white bg-green-600 px-5 py-4 rounded-md shadow-sm w-1/2 text-2xl">
+      <button className="text-white bg-green-700 px-5 py-4 rounded-md shadow-sm w-1/2 text-2xl">
         {loginUser.isLoading ? "Loading..." : "Login"}
       </button>
 

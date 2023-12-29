@@ -1,5 +1,7 @@
 import Footer from "./(platform)/_components/Footer";
 import Navbar from "./(platform)/_components/Navbar";
+import Loading from "./utils/loading";
+import { Suspense } from "react";
 import "./globals.css";
 import type { Metadata } from "next";
 
@@ -12,9 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <main className="container">{children}</main>
-        <Footer />
+        <Suspense fallback={<Loading />}>
+          <Navbar />
+          <main className="container">{children}</main>
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
