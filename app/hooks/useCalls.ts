@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+
 import { login, login as loginApi, signup as signupApi } from "../services/apiAuth";
 import { toast } from "react-toastify";
 
@@ -35,16 +35,16 @@ export const useSignUp = () => {
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+
   const loginUser = useMutation({
     mutationFn: async ({ email, password }: loginInputs) => {
-      loginApi({ email, password });
+      const response = loginApi({ email, password });
     },
     onSuccess: (user: any) => {
-      toast.success(`Welcome, User`);
+      // toast.success(`Welcome, User`);
       queryClient.setQueryData(["user"], user.user);
       console.log(user);
-      router.push("/");
+      // router.push("/");
 
       // if () {
       //   // window.location.href = "/";

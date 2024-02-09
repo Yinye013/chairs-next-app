@@ -4,7 +4,10 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "@/app/hooks/useCalls";
 import { login } from "@/app/services/apiAuth";
 
+import { useRouter } from "next/navigation";
+
 export default function Login() {
+  const router = useRouter;
   const methods = useForm();
 
   const { register, handleSubmit, reset } = methods;
@@ -14,6 +17,7 @@ export default function Login() {
   async function onSubmit(data: any) {
     try {
       await loginUser.mutate(data);
+      console.log("navigate");
     } catch (error) {
       console.log(error);
     }

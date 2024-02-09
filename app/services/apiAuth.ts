@@ -29,6 +29,8 @@ export async function signup({ email, password, name }: signupInputs) {
   }
   if (!error) {
     toast.success("Signed Up Successfully!");
+    window.location.href = "/";
+    //this window navigation is under consideration
   }
   console.log(data);
   return data;
@@ -45,6 +47,10 @@ export async function login({ email, password }: loginInputs) {
   }
   if (!error) {
     toast.success("Welcome");
+    if (data) {
+      window.location.href = "/";
+      //this window navigation is under consideration
+    }
   }
   console.log(data);
   return data;

@@ -14,11 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <Navbar />
         <Suspense fallback={<Loading />}>
-          <Navbar />
           <main className="container">{children}</main>
-          <Footer />
         </Suspense>
+
+        <Footer />
       </body>
     </html>
   );
