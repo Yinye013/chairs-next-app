@@ -6,22 +6,18 @@ type testObj = {
 
 export const testArr: Array<testObj> = [
   {
-    imgPath:
-      "/assets/testimonial-images/ayo-ogunseinde-sibVwORYqs0-unsplash.jpg",
-    testimonial:
-      "These chairs are worth every penny for their durability. A true investment!",
+    imgPath: "/assets/testimonial-images/ayo-ogunseinde-sibVwORYqs0-unsplash.jpg",
+    testimonial: "These chairs are worth every penny for their durability. A true investment!",
     clientName: "Arthur O",
   },
   {
     imgPath: "/assets/testimonial-images/foto-sushi-6anudmpILw4-unsplash.jpg",
-    testimonial:
-      "These chairs changed my space, making it more comfortable and stylish.",
+    testimonial: "These chairs changed my space, making it more comfortable and stylish.",
     clientName: "Michael B",
   },
   {
     imgPath: "/assets/testimonial-images/ivana-cajina-_7LbC5J-jw4-unsplash.jpg",
-    testimonial:
-      "The ethical considerations in these chair choices won me over.",
+    testimonial: "The ethical considerations in these chair choices won me over.",
     clientName: "Romeo B",
   },
 ];
@@ -67,5 +63,39 @@ export const hitusupArr: Array<hitusupFiles> = [
   {
     imgPath: "/assets/gridpics/gridpic9.jpg",
     id: 9,
+  },
+];
+
+type cardProps = {
+  imgPath: string;
+  title: string;
+  listItemOne: string;
+  listItemTwo: string;
+  listItemThree: string;
+  listItemFour: string;
+  price: number;
+  id: number;
+};
+
+export const cardArr: Array<cardProps> = [
+  {
+    imgPath: "/assets/gridpics/gridpic9.jpg",
+    title: "The Laid Back",
+    listItemOne: "Leisure & Relaxing",
+    listItemTwo: "Comfortable for 4h",
+    listItemThree: "Vegan Leather",
+    listItemFour: "Weighs 16kg",
+    price: 250,
+    id: 1,
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic9.jpg",
+    title: "The Laid Back",
+    listItemOne: "Leisure & Relaxing",
+    listItemTwo: "Comfortable for 4h",
+    listItemThree: "Vegan Leather",
+    listItemFour: "Weighs 16kg",
+    price: 500,
+    id: 2,
   },
 ];
