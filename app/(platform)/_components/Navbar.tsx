@@ -47,7 +47,7 @@ const Navbar = () => {
           <ul
             className={`${
               navOpen
-                ? "flex flex-col gap-[1.7rem] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  p-20 w-[100%] h-[100vh] backdrop-blur-lg opacity-1 pointer-events-auto z-50 t"
+                ? "flex flex-col gap-[1.7rem] absolute top-1/2 left-1/2  p-20 w-[100%] h-[100vh] backdrop-blur-lg opacity-1 pointer-events-auto z-50"
                 : "hidden"
             } md:block lg:flex flex-row gap-[4.8rem]`}
           >
