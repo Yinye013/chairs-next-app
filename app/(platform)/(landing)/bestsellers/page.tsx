@@ -17,9 +17,9 @@ export default function BestSellerPage() {
       <div className="grid grid-cols-1 gap-[6rem] md:grid-cols-2 lg:grid-cols-3 ">
         {cardArr.map((card) => (
           <div key={card.id}>
-            <div className="shadow-lg">
-              <figure style={{ marginBottom: "0.5rem" }}>
-                <Image src={card.imgPath} alt={"hero image"} width={378} height={100} />
+            <div className="shadow-lg rounded-lg mb-[3rem] cursor-pointer hover:translate-y-[-3rem] transition-all duration-500">
+              <figure style={{ marginBottom: "0.5rem", overflow: "hidden" }}>
+                <Image src={card.imgPath} alt={"hero image"} width={378} height={100} className="overflow-hidden" />
               </figure>
               <div className="p-[3rem]">
                 <div>

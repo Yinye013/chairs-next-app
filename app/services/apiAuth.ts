@@ -43,7 +43,7 @@ export async function login({ email, password }: loginInputs) {
     password,
   });
   if (error) {
-    toast.error(error.message);
+    toast.error("Login Failed");
   }
   if (!error) {
     toast.success("Welcome");
