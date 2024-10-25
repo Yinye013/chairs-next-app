@@ -96,6 +96,7 @@ header {
 .input {
   border: 1px solid #b0afae;
   font-family: inherit;
+  font-size: 1.4rem;
   width: 70%;
   padding: 1.3rem;
   margin-bottom: 2rem;

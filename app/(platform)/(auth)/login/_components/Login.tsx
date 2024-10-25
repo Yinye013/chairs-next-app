@@ -1,28 +1,54 @@
 import Link from "next/link";
-
 import { useForm } from "react-hook-form";
-import { useLogin } from "@/app/hooks/useCalls";
-import { login } from "@/app/services/apiAuth";
-
+import { useSignIn } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { usePasswordToggle } from "@/app/hooks/usePasswordVisibility";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
+
+interface FormData {
+  email: string;
+  password: string;
+}
+interface ProfileData {
+  name: string;
+}
+
+interface SignInResponse {
+  data: {
+    user: any;
+    session: any;
+  };
+  profileData: ProfileData;
+}
 
 export default function Login() {
-  const router = useRouter;
-  const methods = useForm();
-
+  const router = useRouter();
+  const methods = useForm<FormData>();
   const { register, handleSubmit, reset } = methods;
+  const { isPasswordVisible, togglePasswordVisibility, inputType } = usePasswordToggle();
+  const { mutate: signIn, isLoading, isError, error } = useSignIn();
 
-  const { loginUser } = useLogin();
-
-  async function onSubmit(data: any) {
-    try {
-      await loginUser.mutate(data);
-      console.log("navigate");
-    } catch (error) {
-      console.log(error);
-    }
-    reset();
-  }
+  // LOGIN FUNCTIONALITY
+  const onSubmit = (data: { email: string; password: string }) => {
+    signIn(data, {
+      onSuccess: (result) => {
+        if (result) {
+          const { profileData } = result as SignInResponse;
+          toast.success(`Welcome back, ${profileData.name}`);
+          router.push("/");
+          // console.log(result);
+          reset();
+        } else {
+          toast.error("Login failed. Please try again.");
+        }
+      },
+      onError: (err: any) => {
+        toast.error("Login Failed. Invalid credentials");
+      },
+    });
+  };
 
   return (
     <>
@@ -39,16 +65,24 @@ export default function Login() {
           <label className="block font-bold text-[1.4rem] mb-[0.5rem]" htmlFor="Password">
             Password
           </label>
-
-          <input {...register("password")} className="input" type="password" placeholder="Your Password..." required />
+          <input
+            {...register("password")}
+            className="input mr-[-2.5rem]"
+            type={inputType}
+            placeholder="Your Password..."
+            required
+          />{" "}
+          <button type="button" onClick={togglePasswordVisibility}>
+            {isPasswordVisible ? <FaEyeSlash size={"15px"} /> : <FaEye size={"15px"} />}
+          </button>
         </div>
 
         <Link href="/forgotpassword" className="block text-green-700 text-[1.4rem] font-semibold mb-[1.3rem]">
           Forgot Password?
         </Link>
 
-        <button className="text-white bg-green-700 px-5 py-4 rounded-md shadow-sm w-1/2 text-2xl">
-          {loginUser.isLoading ? "Loading..." : "Login"}
+        <button className="text-white bg-green-700 px-5 py-4 rounded-md shadow-sm w-1/2 text-2xl" disabled={isLoading}>
+          {isLoading ? <ClipLoader color="#ffffff" size={20} /> : "Login"}
         </button>
 
         <p className="text-[1.4rem] mt-[1.3rem]">
