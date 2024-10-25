@@ -1,22 +1,36 @@
 import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useSignUp } from "@/app/hooks/useCalls";
 import { useRouter } from "next/navigation";
+import { usePasswordToggle } from "@/app/hooks/usePasswordVisibility";
+import { useSignUp } from "@/app/hooks/useAuth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
+
+interface FormData {
+  email: string;
+  password: string;
+  name: string;
+}
 
 function Signup() {
-  const { register, handleSubmit, reset } = useForm();
+  const router = useRouter();
+  const { isPasswordVisible, togglePasswordVisibility, inputType } = usePasswordToggle();
+  const { register, handleSubmit, reset } = useForm<FormData>();
+  const { mutate: signUp, isLoading, isError, error } = useSignUp();
 
-  const { signupUser } = useSignUp();
-
-  async function onSubmit(data: any) {
-    try {
-      console.log(data);
-      await signupUser.mutate(data);
-    } catch (error) {
-      console.log(error);
-    }
-    reset();
+  // SIGNUP FUNCTIONALITY
+  function onSubmit(data: { email: string; password: string; name: string }) {
+    signUp(data, {
+      onSuccess: () => {
+        toast.success(`Welcome ${data.name}, you have registered successfully!`);
+        router.push("/");
+      },
+      onError: () => {
+        toast.error("Not registered");
+      },
+    });
   }
   return (
     <>
@@ -34,7 +48,16 @@ function Signup() {
           <label className="block font-bold text-[1.4rem] mb-[0.5rem]" htmlFor="Password">
             Password
           </label>
-          <input {...register("password")} className="input" type="password" placeholder="Your Password..." required />
+          <input
+            {...register("password")}
+            className="input mr-[-2.5rem]"
+            type={inputType}
+            placeholder="Your Password..."
+            required
+          />
+          <button type="button" onClick={togglePasswordVisibility}>
+            {isPasswordVisible ? <FaEyeSlash size={"15px"} /> : <FaEye size={"15px"} />}
+          </button>
         </div>
         {/*  */}
         <div className=" gap-4 items-center">
@@ -44,7 +67,9 @@ function Signup() {
           <input {...register("name")} className="input" type="text" placeholder="Your Name, e.g. John Doe" required />
         </div>
 
-        <button className="text-white bg-green-700 w-[70%] px-[2.8rem] py-[1.4rem] text-[1.6rem]">Sign Up</button>
+        <button className="text-white bg-green-700 w-[70%] px-[2.8rem] py-[1.4rem] text-[1.6rem]" disabled={isLoading}>
+          {isLoading ? <ClipLoader color="#ffffff" size={20} /> : "Sign Up"}
+        </button>
 
         <p className="text-[1.4rem] font-semibold mt-[2rem]">
           Signed Up Successfully? Back to{" "}

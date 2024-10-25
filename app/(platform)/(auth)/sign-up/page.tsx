@@ -14,7 +14,7 @@ export default function SignUpPage() {
           <Lottie animationData={HelloAnimation} />
         </div>
         <div className="p-5">
-          <div className="pl-[9rem]">
+          <div className="mt-[6rem] pl-[9rem]">
             <Logo />
             <p className="mt-[2rem] text-[1.8rem] md:text-[1.4rem]">Sign into your account</p>
           </div>
