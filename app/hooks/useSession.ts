@@ -4,10 +4,14 @@ import supabase from "../services/supabase";
 
 export const useSession = () => {
   const router = useRouter();
+
   useEffect(() => {
-    const session = supabase.auth.getSession();
-    if (!session) {
-      router.push("/login");
-    }
+    const checkSession = async () => {
+      const session = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+      }
+    };
+    checkSession();
   }, [router]);
 };

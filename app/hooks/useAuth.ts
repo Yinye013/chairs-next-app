@@ -24,6 +24,18 @@ export const useSignUp = () => {
   });
 };
 
+// SIGN OUT HOOK
+export const useSignOut = () => {
+  return useMutation(async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error("Error signing out");
+    } else {
+      toast.success("Signed Out Successfully");
+    }
+  });
+};
+
 //SIGN IN (LOGIN) HOOK
 export const useSignIn = () => {
   return useMutation(async (credentials: { email: string; password: string }) => {
