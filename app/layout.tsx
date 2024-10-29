@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import { usePathname } from "next/navigation";
 import type { Metadata } from "next";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const metadata: Metadata = {
   title: "Chairs App",
@@ -14,21 +15,23 @@ const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   // refactoring the login and signup pages
-
+  const queryClient = new QueryClient();
   const pathname = usePathname();
   const noNavbarFooterRoutes = ["/login", "/sign-up"];
   const showNavbarFooter = !noNavbarFooterRoutes.includes(pathname);
 
   return (
     <html lang="en">
-      <body>
-        {showNavbarFooter && <Navbar />}
-        <Suspense fallback={<Loading />}>
-          <main className="container">{children}</main>
-        </Suspense>
+      <QueryClientProvider client={queryClient}>
+        <body>
+          {showNavbarFooter && <Navbar />}
+          <Suspense fallback={<Loading />}>
+            <main className="container">{children}</main>
+          </Suspense>
 
-        {showNavbarFooter && <Footer />}
-      </body>
+          {showNavbarFooter && <Footer />}
+        </body>
+      </QueryClientProvider>
     </html>
   );
 }
