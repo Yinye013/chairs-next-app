@@ -1,3 +1,5 @@
+import supabase from "../services/supabase";
+
 type testObj = {
   imgPath: string;
   testimonial: string;
@@ -74,19 +76,39 @@ type cardProps = {
   listItemThree: string;
   listItemFour: string;
   price: number;
-  id: number;
+  id: string;
 };
 
 export const cardArr: Array<cardProps> = [
   {
-    imgPath: "/assets/gridpics/gridpic9.jpg",
-    title: "The Laid Back",
+    imgPath: "/assets/gridpics/gridpic1.jpg",
+    title: "The Classic Comfort",
     listItemOne: "Leisure & Relaxing",
-    listItemTwo: "Comfortable for 4h",
+    listItemTwo: "Comfortable for 6h",
     listItemThree: "Vegan Leather",
-    listItemFour: "Weighs 16kg",
-    price: 250,
-    id: 1,
+    listItemFour: "Weighs 20kg",
+    price: 275000,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic2.jpg",
+    title: "The Elegant Touch",
+    listItemOne: "Luxury Seating",
+    listItemTwo: "Comfortable all day",
+    listItemThree: "Italian Leather",
+    listItemFour: "Weighs 30kg",
+    price: 950,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic3.jpg",
+    title: "The Sturdy Stand",
+    listItemOne: "Work",
+    listItemTwo: "Ergonomic design",
+    listItemThree: "Steel Frame",
+    listItemFour: "Weighs 28kg",
+    price: 650,
+    id: crypto.randomUUID(),
   },
   {
     imgPath: "/assets/gridpics/gridpic4.jpg",
@@ -96,7 +118,7 @@ export const cardArr: Array<cardProps> = [
     listItemThree: "Vegan Leather",
     listItemFour: "Weighs 22kg",
     price: 525,
-    id: 2,
+    id: crypto.randomUUID(),
   },
   {
     imgPath: "/assets/gridpics/gridpic5.jpg",
@@ -106,6 +128,148 @@ export const cardArr: Array<cardProps> = [
     listItemThree: "Organic Cotton",
     listItemFour: "Weighs 80kg",
     price: 800,
-    id: 3,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic6.jpg",
+    title: "The Compact Chill",
+    listItemOne: "Portable",
+    listItemTwo: "Lightweight",
+    listItemThree: "Nylon Fabric",
+    listItemFour: "Weighs 10kg",
+    price: 200,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic7.jpg",
+    title: "The Luxury Lounge",
+    listItemOne: "Home Comfort",
+    listItemTwo: "High Durability",
+    listItemThree: "Vegan Leather",
+    listItemFour: "Weighs 24kg",
+    price: 825,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic8.jpg",
+    title: "The Office Standard",
+    listItemOne: "Office Chair",
+    listItemTwo: "Adjustable Height",
+    listItemThree: "Mesh Back",
+    listItemFour: "Weighs 15kg",
+    price: 315,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic9.jpg",
+    title: "The Laid Back",
+    listItemOne: "Leisure & Relaxing",
+    listItemTwo: "Comfortable for 4h",
+    listItemThree: "Vegan Leather",
+    listItemFour: "Weighs 16kg",
+    price: 250,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic10.jpg",
+    title: "The Plush Comfort",
+    listItemOne: "Lounge Chair",
+    listItemTwo: "Cushioned Seat",
+    listItemThree: "Velvet Fabric",
+    listItemFour: "Weighs 35kg",
+    price: 710,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic11.jpg",
+    title: "The Ergonomic Elite",
+    listItemOne: "Back Support",
+    listItemTwo: "Memory Foam",
+    listItemThree: "Mesh Backrest",
+    listItemFour: "Weighs 18kg",
+    price: 450,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic12.jpg",
+    title: "The Executive Lux",
+    listItemOne: "Executive Chair",
+    listItemTwo: "Premium Leather",
+    listItemThree: "Recliner",
+    listItemFour: "Weighs 32kg",
+    price: 1100,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic13.jpg",
+    title: "The Modern Minimal",
+    listItemOne: "Home Decor",
+    listItemTwo: "Sleek Design",
+    listItemThree: "Wood Frame",
+    listItemFour: "Weighs 12kg",
+    price: 320,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic14.jpg",
+    title: "The Bold Statement",
+    listItemOne: "Unique Design",
+    listItemTwo: "Comfy Cushion",
+    listItemThree: "Leather Finish",
+    listItemFour: "Weighs 40kg",
+    price: 990,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic15.jpg",
+    title: "The Relaxing Recliner",
+    listItemOne: "Leisure",
+    listItemTwo: "Fully Reclines",
+    listItemThree: "Synthetic Leather",
+    listItemFour: "Weighs 38kg",
+    price: 900,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic16.jpg",
+    title: "The Cozy Corner",
+    listItemOne: "Home Comfort",
+    listItemTwo: "Semi-Reclines",
+    listItemThree: "Plush Fabric",
+    listItemFour: "Weighs 35kg",
+    price: 780,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic17.jpg",
+    title: "The Comfort Cloud",
+    listItemOne: "Leisure & Relaxation",
+    listItemTwo: "Manual Recline",
+    listItemThree: "Vegan Leather",
+    listItemFour: "Weighs 40kg",
+    price: 850,
+    id: crypto.randomUUID(),
+  },
+  {
+    imgPath: "/assets/gridpics/gridpic18.jpg",
+    title: "The Urban Lounger",
+    listItemOne: "Compact Design",
+    listItemTwo: "Adjustable Backrest",
+    listItemThree: "Water-Resistant Fabric",
+    listItemFour: "Weighs 28kg",
+    price: 670,
+    id: crypto.randomUUID(),
   },
 ];
+
+console.log("Hello there cunts");
+const insertProducts = async () => {
+  // if I want to change anything, I'll just delete all the rows from supabase and  then reinsert them
+
+  const { data, error } = await supabase.from("products").insert(cardArr);
+
+  if (data) console.log(data);
+  if (error) console.log(error);
+};
+
+insertProducts();

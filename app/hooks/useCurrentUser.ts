@@ -18,7 +18,7 @@ export const useCurrentUser = () => {
       const { data, error } = await supabase.auth.getUser();
       if (error || !data) {
         setUser(null);
-        console.log("error finding someone");
+        // console.log("error finding someone");
         setLoading(false);
         return;
       }
