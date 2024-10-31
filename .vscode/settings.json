@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Herosection"]
+  "cSpell.words": ["Herosection"],
+  "cSpell.ignoreWords": ["supabase", "tanstack", "toastify"]
 }
