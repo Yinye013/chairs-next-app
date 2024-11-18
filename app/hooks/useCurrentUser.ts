@@ -8,7 +8,16 @@ interface User {
 }
 
 export const useCurrentUser = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    // INITIALIZING LOCAL STORAGE
+    if (typeof window !== "undefined") {
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        return JSON.parse(currentUser);
+      }
+      return null;
+    }
+  });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,6 +28,7 @@ export const useCurrentUser = () => {
       if (error || !data) {
         setUser(null);
         // console.log("error finding someone");
+        localStorage.removeItem("currentUser");
         setLoading(false);
         return;
       }
@@ -35,14 +45,20 @@ export const useCurrentUser = () => {
           userName = profileData.name || userName;
         }
       }
-      setUser({
+      const currentUser = {
         id: userId,
         email: data.user.email || "User",
         name: userName,
-      });
+      };
+      setUser(currentUser);
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
       setLoading(false);
     };
-    fetchUser();
-  }, []);
+    if (!user) {
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
   return { user, loading };
 };
