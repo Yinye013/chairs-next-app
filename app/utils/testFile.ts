@@ -262,7 +262,7 @@ export const cardArr: Array<cardProps> = [
   },
 ];
 
-console.log("Hello there cunts");
+// console.log("Hello there cunts");
 const insertProducts = async () => {
   // if I want to change anything, I'll just delete all the rows from supabase and  then reinsert them
 

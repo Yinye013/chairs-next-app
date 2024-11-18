@@ -5,7 +5,7 @@ import LoadingAnimation from "@/animations/loading.json";
 
 export default function Loading() {
   return (
-    <div className="h-screen flex justify-center items-center backdrop-blur-md">
+    <div className="fixed inset-0 flex items-center justify-center bg-white">
       <Lottie animationData={LoadingAnimation} />
     </div>
   );

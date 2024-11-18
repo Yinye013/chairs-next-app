@@ -7,6 +7,7 @@ import "./globals.css";
 import { usePathname } from "next/navigation";
 import type { Metadata } from "next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import usePageLoading from "./hooks/usePageLoading";
 
 const metadata: Metadata = {
   title: "Chairs App",
@@ -19,17 +20,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   const noNavbarFooterRoutes = ["/login", "/sign-up"];
   const showNavbarFooter = !noNavbarFooterRoutes.includes(pathname);
+  const isLoading = usePageLoading();
 
   return (
     <html lang="en">
       <QueryClientProvider client={queryClient}>
         <body>
-          {showNavbarFooter && <Navbar />}
-          <Suspense fallback={<Loading />}>
-            <main className="container">{children}</main>
-          </Suspense>
+          <div className="relative">
+            {isLoading && (
+              <div className="fixed inset-0 flex items-center justify-center bg-white">
+                {/* <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div> */}
+                <Loading />
+              </div>
+            )}
 
-          {showNavbarFooter && <Footer />}
+            {showNavbarFooter && <Navbar />}
+            <main className={isLoading ? "hidden" : "container"}>{children}</main>
+            {showNavbarFooter && <Footer />}
+          </div>
         </body>
       </QueryClientProvider>
     </html>

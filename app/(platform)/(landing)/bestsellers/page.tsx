@@ -12,6 +12,8 @@ export default function BestSellerPage() {
   const { products, isLoading, error } = useGetProducts();
   return (
     <div>
+      {isLoading && <p>Loading...</p>}
+
       <div>
         <h1 className="heading-tertiary mt-[2.4rem]">
           Here are some of our <span className="text-[#15803d]">bestsellers!</span>
