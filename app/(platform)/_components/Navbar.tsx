@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { HiBars3BottomLeft } from "react-icons/hi2";
-import { IoCartOutline } from "react-icons/io5";
-import { RxAvatar } from "react-icons/rx";
-import { MdClose } from "react-icons/md";
-import { usePathname } from "next/navigation";
-import React, { useState, useCallback } from "react";
-import Logo from "./Logo";
-import AccountMenu from "./AccountMenu";
+import Link from 'next/link';
+import { HiBars3BottomLeft } from 'react-icons/hi2';
+import { IoCartOutline } from 'react-icons/io5';
+import { RxAvatar } from 'react-icons/rx';
+import { MdClose } from 'react-icons/md';
+import { usePathname } from 'next/navigation';
+import React, { useState, useCallback } from 'react';
+import Logo from './Logo';
+import AccountMenu from './AccountMenu';
+import { useCartStore } from '@/app/store/store';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -17,6 +18,8 @@ const Navbar = () => {
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
+  const { cart } = useCartStore();
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   function toggleNav() {
     setNavOpen(!navOpen);
@@ -24,16 +27,16 @@ const Navbar = () => {
 
   const MENU_LINKS = [
     {
-      name: "About",
-      link: "/about",
+      name: 'About',
+      link: '/about',
     },
     {
-      name: "Bestsellers",
-      link: "/bestsellers",
+      name: 'Bestsellers',
+      link: '/bestsellers',
     },
     {
-      name: "Hit Us Up",
-      link: "/hit-us-up",
+      name: 'Hit Us Up',
+      link: '/hit-us-up',
     },
     // {
     //   name: "Login",
@@ -53,8 +56,8 @@ const Navbar = () => {
           <ul
             className={`${
               navOpen
-                ? "flex flex-col gap-[1.7rem] absolute top-1/2 left-1/2  p-20 w-[100%] h-[100vh] backdrop-blur-lg opacity-1 pointer-events-auto z-50"
-                : "hidden"
+                ? 'flex flex-col gap-[1.7rem] absolute top-1/2 left-1/2  p-20 w-[100%] h-[100vh] backdrop-blur-lg opacity-1 pointer-events-auto z-50'
+                : 'hidden'
             } md:block lg:flex flex-row gap-[4.8rem]`}
           >
             {MENU_LINKS.map(({ link, name }) => (
@@ -62,7 +65,7 @@ const Navbar = () => {
                 href={link}
                 key={link}
                 className={`${
-                  pathname === link && "text-[#15803d] font-bold"
+                  pathname === link && 'text-[#15803d] font-bold'
                 } navlink text-[1.8rem] font-semibold hover:text-green-700 transition-all`}
               >
                 {name}
@@ -74,21 +77,21 @@ const Navbar = () => {
         {/* for cart and avatar */}
         <div className="flex items-center gap-8 bg-gray-200 px-1 py-1 rounded-full">
           <div className="rounded-full bg-gray-500 p-1 lg:p-2 relative cursor-pointer">
-            <IoCartOutline className="text-white" size={" 25px"} />
+            <IoCartOutline className="text-white" size={' 25px'} />
             <p className="absolute top-0 md:top-1 right-0 md:right-1 lg:right-2  bg-[#FF0000] border border-white h-[15px] w-[15px] rounded-full text-[10px] text-white flex items-center justify-center">
-              2
+              {totalItems}
             </p>
           </div>
 
           <div className="bg-[#15803d] rounded-full md:p-1 lg:p-2 cursor-pointer" onClick={toggleAccountMenu}>
-            <RxAvatar className="text-white" size={"25px"} />
+            <RxAvatar className="text-white" size={'25px'} />
           </div>
         </div>
         {/* end of cart and avatar */}
 
         <AccountMenu visible={showAccountMenu} />
         <div onClick={toggleNav} className="block transition-all duration-500 lg:hidden">
-          {navOpen ? <MdClose size={"30px"} /> : <HiBars3BottomLeft size={"30px"} />}
+          {navOpen ? <MdClose size={'30px'} /> : <HiBars3BottomLeft size={'30px'} />}
         </div>
       </div>
     </header>
