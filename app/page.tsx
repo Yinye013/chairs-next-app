@@ -1,14 +1,14 @@
-"use client";
-import React, { useEffect } from "react";
-import About from "./(platform)/_components/About";
-import Features from "./(platform)/_components/Features";
-import Herosection from "./(platform)/_components/Herosection";
-import Testimonials from "./(platform)/_components/Testimonials";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import supabase from "./services/supabase";
-import usePageLoading from "./hooks/usePageLoading";
-import Loading from "./utils/loading";
+'use client';
+import React, { useEffect } from 'react';
+import About from './(platform)/_components/About';
+import Features from './(platform)/_components/Features';
+import Herosection from './(platform)/_components/Herosection';
+import Testimonials from './(platform)/_components/Testimonials';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import supabase from './services/supabase';
+import usePageLoading from './hooks/usePageLoading';
+import Loading from './utils/loading';
 // import { useSession } from "./hooks/useSession";
 
 const page = () => {
@@ -20,7 +20,7 @@ const page = () => {
     const checkSession = async () => {
       const session = await supabase.auth.getSession();
       if (!session.data.session) {
-        router.push("/login");
+        router.push('/login');
       }
       console.log(session);
     };
@@ -31,9 +31,9 @@ const page = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Herosection />
+      <Features />
       <About />
       <Testimonials />
-      <Features />
     </QueryClientProvider>
   );
 };

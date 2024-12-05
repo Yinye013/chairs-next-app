@@ -5,7 +5,7 @@ function usePageLoading() {
 
   useEffect(() => {
     // Handler for the `load` event
-    const handlePageLoad = () => setIsLoading(false);
+    const handlePageLoad = (): void => setIsLoading(false);
 
     // Check if the page has already loaded (for fast-loading scenarios)
     if (document.readyState === "complete") {

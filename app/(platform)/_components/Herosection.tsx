@@ -1,62 +1,58 @@
-"use client";
-import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
+'use client';
+import Link from 'next/link';
+import Image from 'next/image';
+// import { motion, animate } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
 
 const Herosection = () => {
-  const headingPrimary: string = "For a better life, we design and create ";
+  const headingPrimary: string =
+    'For a better life, we design and craft chairs that blend ';
   const heroDescription: string =
-    "We spend our days in a little store in the centre of the world obsessively perfecting our chairs. The end result is a great balance of beauty and comfort that will benefit your health in the long run.";
+    'Because every moment you sit should be filled with joy, sparking a sense of inspiration and enveloping you in complete relaxation, making every seat an experience to cherish.';
 
   return (
-    <section className="pt-[4.8rem] pb-[9.6rem]">
+    <section className="h-[100vh] flex justify-center items-center">
       <main className="container">
-        <div className="grid lg:grid-cols-2 gap-14">
-          <div className="pt-[5.2rem]">
-            <div className="mb-[3.2rem]">
-              <h1 className="heading-primary">{headingPrimary}</h1>
-              <div className="flex justify-center lg:justify-start">
-                <span className="heading-primary text-center text-green-700 inline-block lg:text-left ">
-                  <Typewriter
-                    cursor
-                    cursorBlinking
-                    delaySpeed={1000}
-                    deleteSpeed={50}
-                    loop={0}
-                    typeSpeed={100}
-                    words={[
-                      "better seats.",
-                      "comfort for you.",
-                      "quality assurance.",
-                    ]}
-                  />
-                </span>
-              </div>
-            </div>
+        <div className=" flex flex-col gap-[3rem] items-center justify-center text-center">
+          <h1 className="text-center text-[4rem] md:text-[5rem] font-bold leading-[1.2]">
+            {headingPrimary}{' '}
+            <span className=" text-green-700">
+              <Typewriter
+                cursor
+                cursorBlinking
+                delaySpeed={1000}
+                deleteSpeed={50}
+                loop={0}
+                typeSpeed={100}
+                words={[
+                  'unmatched comfort.',
+                  'timeless design.',
+                  'everyday functionality.',
+                ]}
+              />
+            </span>
+          </h1>
 
-            <p className="text-[1.8rem] text-center mb-[1.6rem] tracking-wide lg:text-left">
-              {heroDescription}
-            </p>
+          <p className="text-[1.8rem] text-center tracking-wide">
+            {heroDescription}
+          </p>
 
-            <Link
-              href="#about"
-              className="inline-block mt-[2.2rem] text-center text-white bg-green-700 text-[1.8rem] py-6 px-14 rounded-lg hover:bg-green-800 transition-all lg:text-left"
-            >
-              {" "}
-              LEARN MORE &darr;
-            </Link>
-          </div>
-          <div>
-            <Image
-              src={"/assets/images/hero.jpg"}
-              alt={"hero image"}
-              width={500}
-              height={450}
-              className="mx-auto"
-            />
-          </div>
+          <Link
+            href="#about"
+            className="inline-block text-center text-white bg-green-700 text-[1.8rem] py-6 px-14 rounded-lg hover:bg-green-800 transition-all"
+          >
+            {' '}
+            LEARN MORE &darr;
+          </Link>
         </div>
+        {/* <motion.div
+            className="flex items-center"
+            initial={{ scale: 1, rotate: 0 }}
+            animate={{ scale: 1, rotate: 360 }}
+            transition={{ duration: 10, ease: 'easeInOut', repeat: Infinity }}
+          >
+            <img src={'/assets/images/whitesofa.webp'} alt={'hero image'} className="mx-auto w-[100%] md:h-[300px]" />
+          </motion.div> */}
       </main>
     </section>
   );

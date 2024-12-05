@@ -11,6 +11,9 @@
     "clean": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/material": "^6.1.8",
     "@supabase/supabase-js": "^2.39.1",
     "@tanstack/react-query": "^4.36.1",
     "framer-motion": "^10.16.4",
