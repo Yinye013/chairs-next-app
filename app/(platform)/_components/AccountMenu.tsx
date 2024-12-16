@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { RxAvatar } from "react-icons/rx";
-import { useCurrentUser } from "@/app/hooks/useCurrentUser";
-import { useRouter } from "next/navigation";
-import { useSignOut } from "@/app/hooks/useAuth";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect } from 'react';
+import { RxAvatar } from 'react-icons/rx';
+import { useCurrentUser } from '@/app/hooks/useCurrentUser';
+import { useRouter } from 'next/navigation';
+import { useSignOut } from '@/app/hooks/useAuth';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface AccountMenuProps {
   visible?: boolean;
 }
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
-  const [greeting, setGreeting] = React.useState<string>("");
+  const [greeting, setGreeting] = React.useState<string>('');
   const router = useRouter();
   const { user } = useCurrentUser();
   const { mutate: signOut } = useSignOut();
@@ -18,11 +18,11 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
   const handleSignOut = () => {
     if (user) {
       signOut();
-      router.push("/login");
+      router.push('/login');
     }
 
     if (!user) {
-      router.push("/login");
+      router.push('/login');
     }
   };
 
@@ -31,11 +31,11 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
     const currentHour = new Date().getHours();
     const updateGreeting = () => {
       if (currentHour < 12) {
-        setGreeting("Good morning");
+        setGreeting('Good morning');
       } else if (currentHour < 16) {
-        setGreeting("Good afternoon");
+        setGreeting('Good afternoon');
       } else {
-        setGreeting("Good evening");
+        setGreeting('Good evening');
       }
     };
     updateGreeting();
@@ -62,7 +62,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
                 <RxAvatar className="text-white" size={15} />
               </div>
               <p className=" text-[1.2rem] group-hover/item:underline">{`${greeting}, ${
-                user ? user.name : "Guest"
+                user ? user.name : 'Guest'
               } `}</p>
             </div>
             <hr className="bg-gray-300 border-0 h-px my-4" />
@@ -70,7 +70,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
               className="px-3  text-center text-[1.2rem] hover:underline hover:cursor-pointer"
               onClick={handleSignOut}
             >
-              {`${user ? "Sign Out" : "Sign In"}`}
+              {`${user ? 'Sign Out' : 'Sign In'}`}
             </div>
           </div>
         </motion.div>

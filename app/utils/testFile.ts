@@ -1,5 +1,3 @@
-import supabase from '../services/supabase';
-
 type testObj = {
   imgPath: string;
   testimonial: string;
@@ -8,18 +6,22 @@ type testObj = {
 
 export const testArr: Array<testObj> = [
   {
-    imgPath: '/assets/testimonial-images/ayo-ogunseinde-sibVwORYqs0-unsplash.jpg',
-    testimonial: 'These chairs are worth every penny for their durability. A true investment!',
+    imgPath:
+      '/assets/testimonial-images/ayo-ogunseinde-sibVwORYqs0-unsplash.jpg',
+    testimonial:
+      'These chairs are worth every penny for their durability. A true investment!',
     clientName: 'Arthur O',
   },
   {
     imgPath: '/assets/testimonial-images/foto-sushi-6anudmpILw4-unsplash.jpg',
-    testimonial: 'These chairs changed my space, making it more comfortable and stylish.',
+    testimonial:
+      'These chairs changed my space, making it more comfortable and stylish.',
     clientName: 'Michael B',
   },
   {
     imgPath: '/assets/testimonial-images/ivana-cajina-_7LbC5J-jw4-unsplash.jpg',
-    testimonial: 'The ethical considerations in these chair choices won me over.',
+    testimonial:
+      'The ethical considerations in these chair choices won me over.',
     clientName: 'Romeo B',
   },
 ];
@@ -171,7 +173,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic10.jpg',
+    imgPath: '/assets/chairpics/chairpic1.png',
     title: 'The Plush Comfort',
     listItemOne: 'Lounge Chair',
     listItemTwo: 'Cushioned Seat',
@@ -181,7 +183,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic11.jpg',
+    imgPath: '/assets/chairpics/chairpic2.png',
     title: 'The Ergonomic Elite',
     listItemOne: 'Back Support',
     listItemTwo: 'Memory Foam',
@@ -191,7 +193,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic12.jpg',
+    imgPath: '/assets/chairpics/chairpic3.png',
     title: 'The Executive Lux',
     listItemOne: 'Executive Chair',
     listItemTwo: 'Premium Leather',
@@ -201,7 +203,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic13.jpg',
+    imgPath: '/assets/chairpics/chairpic4.png',
     title: 'The Modern Minimal',
     listItemOne: 'Home Decor',
     listItemTwo: 'Sleek Design',
@@ -211,7 +213,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic14.jpg',
+    imgPath: '/assets/chairpics/chairpic5.png',
     title: 'The Bold Statement',
     listItemOne: 'Unique Design',
     listItemTwo: 'Comfy Cushion',
@@ -221,7 +223,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic15.jpg',
+    imgPath: '/assets/chairpics/chairpic6.png',
     title: 'The Relaxing Recliner',
     listItemOne: 'Leisure',
     listItemTwo: 'Fully Reclines',
@@ -231,7 +233,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic16.jpg',
+    imgPath: '/assets/chairpics/chairpic7.png',
     title: 'The Cozy Corner',
     listItemOne: 'Home Comfort',
     listItemTwo: 'Semi-Reclines',
@@ -241,7 +243,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic17.jpg',
+    imgPath: '/assets/chairpics/chairpic8.png',
     title: 'The Comfort Cloud',
     listItemOne: 'Leisure & Relaxation',
     listItemTwo: 'Manual Recline',
@@ -251,7 +253,7 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
   {
-    imgPath: '/assets/gridpics/gridpic18.jpg',
+    imgPath: '/assets/chairpics/chairpic9.png',
     title: 'The Urban Lounger',
     listItemOne: 'Compact Design',
     listItemTwo: 'Adjustable Backrest',
@@ -261,25 +263,3 @@ export const productsArr: Array<ProductCardProps> = [
     id: crypto.randomUUID(),
   },
 ];
-
-// console.log("Hello there cunts");
-
-// const insertProducts = async () => {
-
-//   const hasInserted = localStorage.getItem("productsInserted");
-//   if (hasInserted) {
-//     console.log("Products already inserted. Skipping...");
-//     return;
-//   }
-//   const { data, error } = await supabase.from("products").insert(cardArr);
-
-//   if (data) {
-//     console.log("Inserted products:", data);
-//     localStorage.setItem("productsInserted", "true");
-//   }
-//   if (error) {
-//     console.error("Insertion error:", error);
-//   }
-// };
-
-// insertProducts();

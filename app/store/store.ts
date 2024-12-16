@@ -43,45 +43,100 @@ interface CartItems {
   id: string; // Product ID
   title: string;
   price: number;
+  imgPath: string;
   quantity: number;
 }
 interface CartStore {
   cart: CartItems[];
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
+  incrementQuantity: (productId: string) => void;
+  decrementQuantity: (productId: string) => void;
   clearCart: () => void;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   //add cart to local storage
-  cart: [],
+  cart: (() => {
+    try {
+      const cartFromStorage = localStorage.getItem('cart');
+      return cartFromStorage ? JSON.parse(cartFromStorage) : [];
+    } catch (error) {
+      console.error('Error parsing cart from localStorage:', error);
+      return [];
+    }
+  })(), //IIFE usage
   //JSON.parse(localStorage.getItem('cart') || '[]')
   addItem: (product) => {
-    const cart = get().cart; //always get the current cart
+    const cart = get().cart;
     const existingItem = cart.find((item: any) => item.id === product.id);
     let updatedCart;
 
     if (existingItem) {
-      updatedCart = set({
-        cart: cart.map((item: any) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)),
-      });
+      updatedCart = cart.map((item: any) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item,
+      );
       toast.success(`Increased quantity of "${product.title}" in your cart!`);
     } else {
-      updatedCart = set({ cart: [...cart, { ...product, quantity: 1 }] }); //error here: SPREAD OUT THE
+      updatedCart = [...cart, { ...product, quantity: 1 }];
       toast.success(`Added "${product.title}" to your cart!`);
     }
-    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
+
+    // Ensure local storage is updated
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    set({ cart: updatedCart });
+    return { cart: updatedCart };
+  },
+
+  incrementQuantity: (productId: any) => {
+    // increment the quantity
+    const cart = get().cart;
+    const updatedCart = cart.map((item: any) =>
+      item.id === productId ? { ...item, quantity: item.quantity + 1 } : item,
+    );
+
+    // Ensure local storage is updated
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    set({ cart: updatedCart });
+    return { cart: updatedCart };
+  },
+
+  decrementQuantity: (productId: any) => {
+    // decrement the quantity
+    const cart = get().cart;
+    const updatedCart = cart
+      .map((item: any) =>
+        item.id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item,
+      )
+      .filter((item: any) => item.quantity > 0);
+
+    // Ensure local storage is updated
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    set({ cart: updatedCart });
     return { cart: updatedCart };
   },
 
   removeItem: (productId) => {
     const cart = get().cart;
-    const updatedCart = set({ cart: cart.filter((item: any) => item.id !== productId) });
+    const updatedCart = cart.filter((item: any) => item.id !== productId);
+
+    // Ensure local storage is updated
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    set({ cart: updatedCart });
     toast.info(`Item removed from your cart!`);
-    localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save to localStorage
     return { cart: updatedCart };
   },
   clearCart: () => {
+    localStorage.removeItem('cart');
+
     set({ cart: [] });
     toast.warn('Cart cleared!');
     return { cart: [] };
