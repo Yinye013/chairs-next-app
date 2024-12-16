@@ -16,7 +16,7 @@ const Herosection = () => {
         <div className=" flex flex-col gap-[3rem] items-center justify-center text-center">
           <h1 className="text-center text-[4rem] md:text-[5rem] font-bold leading-[1.2]">
             {headingPrimary}{' '}
-            <span className=" text-green-700">
+            <span className="herosection-p-bg">
               <Typewriter
                 cursor
                 cursorBlinking

@@ -1,17 +1,10 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
 import { ProductCardProps } from '@/app/utils/testFile';
 import { FaRegStar, FaShoppingCart } from 'react-icons/fa';
 import { CiClock2 } from 'react-icons/ci';
 import { IoEarthSharp } from 'react-icons/io5';
 import { GiCubes } from 'react-icons/gi';
 import { useCartStore } from '@/app/store/store';
-import { productsArr } from '../../utils/testFile';
 
 const ProductCard: React.FC<ProductCardProps> = ({
   imgPath,
@@ -33,16 +26,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Card
-      sx={{ maxWidth: 345, '&:hover': { transform: 'scale(1.05)' } }}
-      className="transition-all duration-300 cursor-pointer"
-    >
-      <CardMedia component="img" height="150" image={imgPath} alt={title} />
-      <CardContent>
-        <Typography gutterBottom variant="h1" component="div" className="text-[2.4rem] font-bold">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
+    <div className="max-w-xl rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+      <img
+        className="w-full h-[25rem] object-cover"
+        src={imgPath}
+        alt={title}
+        loading="lazy"
+      />
+      <div className="p-4">
+        <h1 className="text-[2.4rem] font-bold mb-2">{title}</h1>
+        <div>
           <ul className="grid grid-cols-2 text-[1.2rem] font-semibold gap-4 list-none p-0 tracking-wide">
             <li className="flex items-center gap-[1rem]">
               <FaRegStar fill="#15803d" />
@@ -61,19 +54,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
               {listItemFour}
             </li>
           </ul>
-        </Typography>
-      </CardContent>
-      <CardActions className="flex justify-between">
+        </div>
+      </div>
+      <div className="flex justify-between p-4">
         <p className="text-[2.4rem] font-bold">$ {price}</p>
-        <Button
-          variant="contained"
+        <button
           className="flex items-center gap-[1.2rem] uppercase text-[1.4rem] px-[1.6rem] py-[0.8rem] bg-[#15803d] text-white font-bold rounded-md"
-          onClick={() => handleAddtoCart({ title, id, price })}
+          onClick={() => handleAddtoCart({ title, id, price, imgPath })}
         >
           Add to cart <FaShoppingCart fill="#fff" />
-        </Button>
-      </CardActions>
-    </Card>
+        </button>
+      </div>
+    </div>
   );
 };
 export default ProductCard;

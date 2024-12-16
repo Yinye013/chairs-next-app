@@ -6,7 +6,7 @@ import Herosection from './(platform)/_components/Herosection';
 import Testimonials from './(platform)/_components/Testimonials';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import supabase from './services/supabase';
+// import supabase from './services/supabase';
 import usePageLoading from './hooks/usePageLoading';
 import Loading from './utils/loading';
 // import { useSession } from "./hooks/useSession";
@@ -16,16 +16,16 @@ const page = () => {
   const router = useRouter();
   const isLoading = usePageLoading();
 
-  useEffect(() => {
-    const checkSession = async () => {
-      const session = await supabase.auth.getSession();
-      if (!session.data.session) {
-        router.push('/login');
-      }
-      console.log(session);
-    };
-    checkSession();
-  }, [router]);
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     const session = await supabase.auth.getSession();
+  //     if (!session.data.session) {
+  //       router.push('/login');
+  //     }
+  //     console.log(session);
+  //   };
+  //   checkSession();
+  // }, [router]);
 
   const queryClient = new QueryClient();
   return (
