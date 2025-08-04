@@ -2,6 +2,9 @@
 
 'use client';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import { useCartStore } from '@/app/store/store';
 import { Trash2, Plus, Minus } from 'lucide-react';

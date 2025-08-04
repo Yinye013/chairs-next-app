@@ -7,7 +7,7 @@ import { useSignUp } from '@/app/hooks/useAuth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { useSignUpWithGoogle } from '@/app/hooks/useAuth';
+// import { useSignUpWithGoogle } from '@/app/hooks/useAuth';
 
 interface FormData {
   email: string;
@@ -22,7 +22,7 @@ function Signup() {
     usePasswordToggle();
   const { register, handleSubmit, reset } = useForm<FormData>();
   const { signUp } = useSignUp();
-  const { signUpWithGoogle } = useSignUpWithGoogle();
+  // const { signUpWithGoogle } = useSignUpWithGoogle();
 
   // SIGNUP FUNCTIONALITY
   async function onSubmit(formData: FormData) {
@@ -39,23 +39,23 @@ function Signup() {
       },
     });
   }
-  const handleGoogleSignUp = async () => {
-    await signUpWithGoogle.mutate(undefined, {
-      onSuccess: () => {
-        router.push('/');
-        setIsLoading(false);
-      },
-      onError: () => {
-        toast.error('Registration failed');
-      },
-    });
-  };
+  // const handleGoogleSignUp = async () => {
+  //   await signUpWithGoogle.mutate(undefined, {
+  //     onSuccess: () => {
+  //       router.push('/');
+  //       setIsLoading(false);
+  //     },
+  //     onError: () => {
+  //       toast.error('Registration failed');
+  //     },
+  //   });
+  // };
   return (
     <>
       <div className="">
         <button
           // Handle Google sign-in
-          onClick={handleGoogleSignUp}
+          // onClick={handleGoogleSignUp}
           className="w-full bg-gray-3 text-primary-2/70 text-lg mb-3 flex justify-center border border-s gap-2 items-center py-3 bg-gray-1 hover:bg-gray-2 duration-300 rounded-[50px]"
         >
           <img src="/assets/google.svg" alt="Google Logo" />

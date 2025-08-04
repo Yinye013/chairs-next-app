@@ -59,8 +59,12 @@ export const useCartStore = create<CartStore>((set, get) => ({
   //add cart to local storage
   cart: (() => {
     try {
-      const cartFromStorage = localStorage.getItem('cart');
-      return cartFromStorage ? JSON.parse(cartFromStorage) : [];
+      // Check if we're on the client side
+      if (typeof window !== 'undefined') {
+        const cartFromStorage = localStorage.getItem('cart');
+        return cartFromStorage ? JSON.parse(cartFromStorage) : [];
+      }
+      return [];
     } catch (error) {
       console.error('Error parsing cart from localStorage:', error);
       return [];
@@ -85,7 +89,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
 
     // Ensure local storage is updated
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
 
     set({ cart: updatedCart });
     return { cart: updatedCart };
@@ -99,7 +105,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
     );
 
     // Ensure local storage is updated
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
 
     set({ cart: updatedCart });
     return { cart: updatedCart };
@@ -117,7 +125,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
       .filter((item: any) => item.quantity > 0);
 
     // Ensure local storage is updated
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
 
     set({ cart: updatedCart });
     return { cart: updatedCart };
@@ -128,14 +138,18 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const updatedCart = cart.filter((item: any) => item.id !== productId);
 
     // Ensure local storage is updated
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    }
 
     set({ cart: updatedCart });
     toast.info(`Item removed from your cart!`);
     return { cart: updatedCart };
   },
   clearCart: () => {
-    localStorage.removeItem('cart');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('cart');
+    }
 
     set({ cart: [] });
     toast.warn('Cart cleared!');

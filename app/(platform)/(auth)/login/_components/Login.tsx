@@ -7,7 +7,6 @@ import { usePasswordToggle } from '@/app/hooks/usePasswordVisibility';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { useSignInWithGoogle } from '@/app/hooks/useAuth';
 
 interface FormData {
   email: string;
@@ -34,7 +33,7 @@ export default function Login() {
   const { isPasswordVisible, togglePasswordVisibility, inputType } =
     usePasswordToggle();
   const { signIn } = useSignIn();
-  const { signInWithGoogle } = useSignInWithGoogle();
+  // const { signInWithGoogle } = useSignInWithGoogle();
 
   // LOGIN FUNCTIONALITY
   const onSubmit = (data: { email: string; password: string }) => {
@@ -52,24 +51,24 @@ export default function Login() {
       },
     });
   };
-  const handleGoogleSignIn = async () => {
-    await signInWithGoogle.mutate(undefined, {
-      onSuccess: () => {
-        router.push('/');
-        setIsLoading(false);
-      },
-      onError: () => {
-        toast.error('Login failed');
-      },
-    });
-  };
+  // const handleGoogleSignIn = async () => {
+  //   await signInWithGoogle.mutate(undefined, {
+  //     onSuccess: () => {
+  //       router.push('/');
+  //       setIsLoading(false);
+  //     },
+  //     onError: () => {
+  //       toast.error('Login failed');
+  //     },
+  //   });
+  // };
 
   return (
     <>
       <div className="">
         <button
           // Handle Google sign-in
-          onClick={handleGoogleSignIn}
+          // onClick={handleGoogleSignIn}
           className="w-full bg-gray-3 text-primary-2/70 text-lg mb-3 flex justify-center border border-s gap-2 items-center py-3 bg-gray-1 hover:bg-gray-2 duration-300 rounded-[50px]"
         >
           <img src="/assets/google.svg" alt="Google Logo" />

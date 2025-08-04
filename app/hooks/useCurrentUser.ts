@@ -20,18 +20,20 @@ export const useCurrentUser = () => {
   useEffect(() => {
     const checkUser = () => {
       setIsLoading(true);
-      const currentUser = localStorage.getItem('currentUser');
-      if (currentUser) {
-        try {
-          const parsedUser: User = JSON.parse(currentUser);
-          setUser(parsedUser);
-        } catch (error) {
-          console.error('Error parsing user from localStorage:', error);
-          localStorage.removeItem('currentUser');
+      if (typeof window !== 'undefined') {
+        const currentUser = localStorage.getItem('currentUser');
+        if (currentUser) {
+          try {
+            const parsedUser: User = JSON.parse(currentUser);
+            setUser(parsedUser);
+          } catch (error) {
+            console.error('Error parsing user from localStorage:', error);
+            localStorage.removeItem('currentUser');
+            setUser(null);
+          }
+        } else {
           setUser(null);
         }
-      } else {
-        setUser(null);
       }
       setIsLoading(false);
     };

@@ -25,7 +25,9 @@ export const useSignUp = () => {
 
         if (data) {
           //setting the user in local storage
-          localStorage.setItem('currentUser', JSON.stringify(data));
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('currentUser', JSON.stringify(data));
+          }
           toast.success('Registration Successful');
         }
         return data;
@@ -52,7 +54,9 @@ export const useSignOut = () => {
   // });
   return useMutation(async () => {
     try {
-      localStorage.removeItem('currentUser');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('currentUser');
+      }
       toast.success('Signed Out Successfully');
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -70,7 +74,9 @@ export const useSignIn = () => {
       );
       if (data) {
         //setting the user in local storage
-        localStorage.setItem('currentUser', JSON.stringify(data));
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('currentUser', JSON.stringify(data));
+        }
         toast.success('Login Successful');
       }
       return data;
