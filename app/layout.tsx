@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import type { Metadata } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import usePageLoading from './hooks/usePageLoading';
+import NextTopLoader from 'nextjs-toploader';
 
 const metadata: Metadata = {
   title: 'Chairs App',
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
         <body>
+          <NextTopLoader showSpinner={false} color="#16803C" height={4} />
           <div className="relative">
             {isLoading && (
               <div className="fixed inset-0 flex items-center justify-center bg-white">
