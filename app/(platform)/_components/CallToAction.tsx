@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import useMultipleAnimations from '@/app/hooks/useMultipleAnimations';
 import { ArrowRight, ShoppingCart, Star } from 'lucide-react';
+import { AnimatedCounter } from '@/app/components/AnimatedCounter';
 
 const CallToAction = () => {
   const { ref, inView } = useInView({
@@ -18,10 +19,11 @@ const CallToAction = () => {
     <motion.section
       ref={ref}
       animate={animation}
-      className="pt-[4.8rem] pb-[9.6rem] mb-[4rem] bg-gradient-to-br from-[#f0fdf4] via-[#dcfce7] to-[#bbf7d0]"
+      className="py-[9.6rem] mb-[4rem] bg-gradient-to-br from-[#15803d] via-[#16a34a] to-[#22c55e] relative overflow-hidden"
     >
-      <div className="container relative">
-        <div className="text-center max-w-7xl mx-auto">
+      <div className="container relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
+          {/* Subheading */}
           <motion.p
             className="subheading"
             initial={{ opacity: 0, y: 20 }}
@@ -32,7 +34,7 @@ const CallToAction = () => {
           </motion.p>
 
           <motion.h2
-            className="heading-secondary mb-[2.4rem]"
+            className="heading-secondary !text-white mb-8 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3 }}
@@ -41,7 +43,7 @@ const CallToAction = () => {
           </motion.h2>
 
           <motion.p
-            className="text-[1.8rem] leading-relaxed mb-[4.8rem] max-w-5xl mx-auto"
+            className="text-[1.8rem] text-white/90 mb-12 leading-relaxed max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.4 }}
@@ -57,25 +59,40 @@ const CallToAction = () => {
             transition={{ delay: 0.5 }}
           >
             <div className="text-center">
-              <div className="text-[3.6rem] font-bold text-[#15803d] mb-[1.2rem]">
-                10K+
+              <div className="text-4xl font-bold text-white mb-2">
+                <AnimatedCounter
+                  end={10000}
+                  duration={2500}
+                  suffix="+"
+                  className="inline-block"
+                />
+              </div>
+              <div className="text-white/80 text-lg">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="flex justify-center items-center mb-2">
+                <Star className="w-8 h-8 text-yellow-300 fill-current" />
+                <span className="text-4xl font-bold text-white ml-2">
+                  <AnimatedCounter
+                    end={4.9}
+                    duration={2000}
+                    decimals={1}
+                    className="inline-block"
+                  />
+                </span>
               </div>
               <div className="text-[1.6rem] text-[#666]">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="flex justify-center items-center mb-[1.2rem]">
-                <Star className="w-8 h-8 text-[#e67e22] fill-current mr-2" />
-                <span className="text-[3.6rem] font-bold text-[#15803d]">
-                  4.9
-                </span>
+              <div className="text-4xl font-bold text-white mb-2">
+                <AnimatedCounter
+                  end={500}
+                  duration={2200}
+                  suffix="+"
+                  className="inline-block"
+                />
               </div>
-              <div className="text-[1.6rem] text-[#666]">Average Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-[3.6rem] font-bold text-[#15803d] mb-[1.2rem]">
-                500+
-              </div>
-              <div className="text-[1.6rem] text-[#666]">Chair Models</div>
+              <div className="text-white/80 text-lg">Chair Models</div>
             </div>
           </motion.div>
 
