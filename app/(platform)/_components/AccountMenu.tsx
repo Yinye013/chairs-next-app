@@ -1,19 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { RxAvatar } from 'react-icons/rx';
 import { useCurrentUser } from '@/app/hooks/useCurrentUser';
 import { useRouter } from 'next/navigation';
 import { useSignOut } from '@/app/hooks/useAuth';
 import { AnimatePresence, motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface AccountMenuProps {
   visible?: boolean;
+  onClose?: () => void;
+  triggerRef?: React.RefObject<HTMLElement>;
 }
 
-const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
+const AccountMenu: React.FC<AccountMenuProps> = ({
+  visible,
+  onClose,
+  triggerRef,
+}) => {
   const [greeting, setGreeting] = React.useState<string>('');
   const router = useRouter();
   const { user } = useCurrentUser();
   const { mutate: signOut } = useSignOut();
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  console.log('Current User:', user);
 
   const handleSignOut = () => {
     if (user) {
@@ -40,12 +50,34 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
     };
     updateGreeting();
     const interval = setInterval(updateGreeting, 60000);
-    // Cleanup interval on unmount
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const isOutsideMenu =
+        menuRef.current && !menuRef.current.contains(target);
+      const isOutsideTrigger =
+        triggerRef?.current && !triggerRef.current.contains(target);
+
+      if (isOutsideMenu && isOutsideTrigger) {
+        onClose?.();
+      }
+    };
+
+    if (visible) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [visible, onClose, triggerRef]);
+
   // render the account menu component
   if (!visible) return null;
+
   return (
     <AnimatePresence>
       {visible && (
@@ -55,6 +87,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           className="bg-[#F9F9F9] text-black absolute top-[6rem] right-[3rem] py-5 flex flex-col border-1 border-gray-200 w-[200px] rounded-md shadow-lg "
+          id="account-menu"
         >
           <div className="flex flex-col gap-3">
             <div className="px-3 group/icon flex flex-wrap gap-3  items-center w-full">
@@ -62,16 +95,17 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
                 <RxAvatar className="text-white" size={15} />
               </div>
               <p className=" text-[1.2rem] group-hover/item:underline">{`${greeting}, ${
-                user ? user.name : 'Guest'
+                user ? user.user.name : 'Guest'
               } `}</p>
             </div>
             <hr className="bg-gray-300 border-0 h-px my-4" />
-            <div
+            <Link
+              href="/login"
               className="px-3  text-center text-[1.2rem] hover:underline hover:cursor-pointer"
               onClick={handleSignOut}
             >
-              {`${user ? 'Sign Out' : 'Sign In'}`}
-            </div>
+              {`${user?.user ? 'Sign Out' : 'Sign In'}`}
+            </Link>
           </div>
         </motion.div>
       )}

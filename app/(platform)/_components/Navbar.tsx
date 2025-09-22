@@ -6,7 +6,7 @@ import { IoCartOutline } from 'react-icons/io5';
 import { RxAvatar } from 'react-icons/rx';
 import { MdClose } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Logo from './Logo';
 import AccountMenu from './AccountMenu';
 import { useCartStore } from '@/app/store/store';
@@ -15,11 +15,17 @@ const Navbar = () => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const [showAccountMenu, setShowAccountMenu] = useState<boolean>(false);
+  const avatarRef = useRef<HTMLDivElement>(null);
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
   const { cart } = useCartStore();
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  // Close account menu when pathname changes
+  useEffect(() => {
+    setShowAccountMenu(false);
+  }, [pathname]);
 
   function toggleNav() {
     setNavOpen(!navOpen);
@@ -87,6 +93,7 @@ const Navbar = () => {
           </Link>
 
           <div
+            ref={avatarRef}
             className="bg-[#15803d] rounded-full md:p-1 lg:p-2 cursor-pointer"
             onClick={toggleAccountMenu}
           >
@@ -95,7 +102,11 @@ const Navbar = () => {
         </div>
         {/* end of cart and avatar */}
 
-        <AccountMenu visible={showAccountMenu} />
+        <AccountMenu
+          visible={showAccountMenu}
+          onClose={() => setShowAccountMenu(false)}
+          triggerRef={avatarRef}
+        />
         <div
           onClick={toggleNav}
           className="block transition-all duration-500 lg:hidden"

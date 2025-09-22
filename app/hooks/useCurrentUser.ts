@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react';
 
-interface User {
-  id: string;
+interface CurrentUser {
+  createdAt: string;
   email: string;
+  id: string;
   name: string;
+  password: string;
+  refreshToken: null;
+  updatedAt: string;
+}
+interface User {
+  accessToken: string;
+  user: CurrentUser;
 }
 
 export const useCurrentUser = () => {

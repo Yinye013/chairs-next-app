@@ -1,28 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
-// import supabase from "../services/supabase";
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 export const useSignUp = () => {
   // add a isloading feature and return it with signup
-
   const signUp = useMutation(
     async (credentials: { email: string; password: string; name: string }) => {
       try {
-        // const { data } = await axios.get(
-        //   'http://localhost:5000/api/users/getusers',
-        // );
-        // console.log(data);
-
         // documentation: ran into an issue with the signup endpoint, I didn't install cors and require it in the backend for cross origin requests.
-
         const { data } = await axios.post(
-          'http://localhost:5000/api/users/register',
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
           credentials,
         );
-
         console.log(credentials);
-
         if (data) {
           //setting the user in local storage
           if (typeof window !== 'undefined') {

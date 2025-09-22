@@ -8,7 +8,7 @@ import Signup from './_components/Signup';
 
 export default function SignUpPage() {
   return (
-    <div className="h-screen flex items-center">
+    <div className="h-screen flex mt-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex items-center">
           <Lottie animationData={HelloAnimation} />

@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
