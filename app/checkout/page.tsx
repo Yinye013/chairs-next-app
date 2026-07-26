@@ -5,7 +5,7 @@
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCartStore } from '@/app/store/store';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import Link from 'next/link';
@@ -55,10 +55,14 @@ const CheckoutPage: React.FC = () => {
     }
   };
 
-  if (!user) {
-    toast.error('Please log in or sign up to checkout');
-    router.push('/login');
+  useEffect(() => {
+    if (!user) {
+      toast.error('Please log in or sign up to checkout');
+      router.push('/login');
+    }
+  }, [user, router]);
 
+  if (!user) {
     return <></>;
   } else {
     return (

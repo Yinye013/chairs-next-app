@@ -15,10 +15,7 @@ export default function LoadingBar({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    console.log('LoadingBar: isLoading changed to', isLoading);
-
     if (isLoading) {
-      // console.log('LoadingBar: Starting loading animation');
       setVisible(true);
       setProgress(10);
 
@@ -27,7 +24,6 @@ export default function LoadingBar({
         setProgress((prev) => {
           if (prev >= 90) return prev; // Don't complete until loading is done
           const newProgress = prev + Math.random() * 10 + 5;
-          console.log('LoadingBar: Progress updated to', newProgress);
           return Math.min(newProgress, 90);
         });
       }, 50);
@@ -38,7 +34,6 @@ export default function LoadingBar({
 
       // Hide after completing
       const hideTimer = setTimeout(() => {
-        console.log('LoadingBar: Hiding');
         setVisible(false);
         setProgress(0);
       }, duration);
@@ -46,13 +41,6 @@ export default function LoadingBar({
       return () => clearTimeout(hideTimer);
     }
   }, [isLoading, duration]);
-
-  console.log(
-    'LoadingBar: Rendering with visible=',
-    visible,
-    'progress=',
-    progress,
-  );
 
   return (
     <div className="fixed top-0 left-0 w-full z-[9999] pointer-events-none">

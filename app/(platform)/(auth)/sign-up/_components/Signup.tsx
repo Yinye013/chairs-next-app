@@ -36,6 +36,7 @@ function Signup() {
       },
       onError: () => {
         toast.error('Registration failed');
+        setIsLoading(false);
       },
     });
   }

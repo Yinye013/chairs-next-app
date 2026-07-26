@@ -90,7 +90,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 20kg',
     price: 275000,
-    id: crypto.randomUUID(),
+    id: 'classic-comfort',
   },
   {
     imgPath: '/assets/gridpics/gridpic2.jpg',
@@ -100,7 +100,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Italian Leather',
     listItemFour: 'Weighs 30kg',
     price: 950,
-    id: crypto.randomUUID(),
+    id: 'elegant-touch',
   },
   {
     imgPath: '/assets/gridpics/gridpic3.jpg',
@@ -110,7 +110,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Steel Frame',
     listItemFour: 'Weighs 28kg',
     price: 650,
-    id: crypto.randomUUID(),
+    id: 'sturdy-stand',
   },
   {
     imgPath: '/assets/gridpics/gridpic4.jpg',
@@ -120,7 +120,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 22kg',
     price: 525,
-    id: crypto.randomUUID(),
+    id: 'worker-bee',
   },
   {
     imgPath: '/assets/gridpics/gridpic5.jpg',
@@ -130,7 +130,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Organic Cotton',
     listItemFour: 'Weighs 80kg',
     price: 800,
-    id: crypto.randomUUID(),
+    id: 'chair-4-2',
   },
   {
     imgPath: '/assets/gridpics/gridpic6.jpg',
@@ -140,7 +140,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Nylon Fabric',
     listItemFour: 'Weighs 10kg',
     price: 200,
-    id: crypto.randomUUID(),
+    id: 'compact-chill',
   },
   {
     imgPath: '/assets/gridpics/gridpic7.jpg',
@@ -150,7 +150,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 24kg',
     price: 825,
-    id: crypto.randomUUID(),
+    id: 'luxury-lounge',
   },
   {
     imgPath: '/assets/gridpics/gridpic8.jpg',
@@ -160,7 +160,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Mesh Back',
     listItemFour: 'Weighs 15kg',
     price: 315,
-    id: crypto.randomUUID(),
+    id: 'office-standard',
   },
   {
     imgPath: '/assets/gridpics/gridpic9.jpg',
@@ -170,7 +170,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 16kg',
     price: 250,
-    id: crypto.randomUUID(),
+    id: 'laid-back',
   },
   {
     imgPath: '/assets/chairpics/chairpic1.png',
@@ -180,7 +180,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Velvet Fabric',
     listItemFour: 'Weighs 35kg',
     price: 710,
-    id: crypto.randomUUID(),
+    id: 'plush-comfort',
   },
   {
     imgPath: '/assets/chairpics/chairpic2.png',
@@ -190,7 +190,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Mesh Backrest',
     listItemFour: 'Weighs 18kg',
     price: 450,
-    id: crypto.randomUUID(),
+    id: 'ergonomic-elite',
   },
   {
     imgPath: '/assets/chairpics/chairpic3.png',
@@ -200,7 +200,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Recliner',
     listItemFour: 'Weighs 32kg',
     price: 1100,
-    id: crypto.randomUUID(),
+    id: 'executive-lux',
   },
   {
     imgPath: '/assets/chairpics/chairpic4.png',
@@ -210,7 +210,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Wood Frame',
     listItemFour: 'Weighs 12kg',
     price: 320,
-    id: crypto.randomUUID(),
+    id: 'modern-minimal',
   },
   {
     imgPath: '/assets/chairpics/chairpic5.png',
@@ -220,7 +220,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Leather Finish',
     listItemFour: 'Weighs 40kg',
     price: 990,
-    id: crypto.randomUUID(),
+    id: 'bold-statement',
   },
   {
     imgPath: '/assets/chairpics/chairpic6.png',
@@ -230,7 +230,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Synthetic Leather',
     listItemFour: 'Weighs 38kg',
     price: 900,
-    id: crypto.randomUUID(),
+    id: 'relaxing-recliner',
   },
   {
     imgPath: '/assets/chairpics/chairpic7.png',
@@ -240,7 +240,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Plush Fabric',
     listItemFour: 'Weighs 35kg',
     price: 780,
-    id: crypto.randomUUID(),
+    id: 'cozy-corner',
   },
   {
     imgPath: '/assets/chairpics/chairpic8.png',
@@ -250,7 +250,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 40kg',
     price: 850,
-    id: crypto.randomUUID(),
+    id: 'comfort-cloud',
   },
   {
     imgPath: '/assets/chairpics/chairpic9.png',
@@ -260,6 +260,6 @@ export const productsArr: Array<ProductCardProps> = [
     listItemThree: 'Water-Resistant Fabric',
     listItemFour: 'Weighs 28kg',
     price: 670,
-    id: crypto.randomUUID(),
+    id: 'urban-lounger',
   },
 ];
