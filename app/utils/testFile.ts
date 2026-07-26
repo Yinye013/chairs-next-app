@@ -89,7 +89,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfortable for 6h',
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 20kg',
-    price: 275000,
+    price: 357500,
     id: 'classic-comfort',
   },
   {
@@ -99,7 +99,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfortable all day',
     listItemThree: 'Italian Leather',
     listItemFour: 'Weighs 30kg',
-    price: 950,
+    price: 1235000,
     id: 'elegant-touch',
   },
   {
@@ -109,7 +109,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Ergonomic design',
     listItemThree: 'Steel Frame',
     listItemFour: 'Weighs 28kg',
-    price: 650,
+    price: 845000,
     id: 'sturdy-stand',
   },
   {
@@ -119,7 +119,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfortable for 8h',
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 22kg',
-    price: 525,
+    price: 682500,
     id: 'worker-bee',
   },
   {
@@ -129,7 +129,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfortable all day',
     listItemThree: 'Organic Cotton',
     listItemFour: 'Weighs 80kg',
-    price: 800,
+    price: 1040000,
     id: 'chair-4-2',
   },
   {
@@ -139,7 +139,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Lightweight',
     listItemThree: 'Nylon Fabric',
     listItemFour: 'Weighs 10kg',
-    price: 200,
+    price: 260000,
     id: 'compact-chill',
   },
   {
@@ -149,7 +149,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'High Durability',
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 24kg',
-    price: 825,
+    price: 1072500,
     id: 'luxury-lounge',
   },
   {
@@ -159,7 +159,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Adjustable Height',
     listItemThree: 'Mesh Back',
     listItemFour: 'Weighs 15kg',
-    price: 315,
+    price: 409500,
     id: 'office-standard',
   },
   {
@@ -169,7 +169,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfortable for 4h',
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 16kg',
-    price: 250,
+    price: 325000,
     id: 'laid-back',
   },
   {
@@ -179,7 +179,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Cushioned Seat',
     listItemThree: 'Velvet Fabric',
     listItemFour: 'Weighs 35kg',
-    price: 710,
+    price: 923000,
     id: 'plush-comfort',
   },
   {
@@ -189,7 +189,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Memory Foam',
     listItemThree: 'Mesh Backrest',
     listItemFour: 'Weighs 18kg',
-    price: 450,
+    price: 585000,
     id: 'ergonomic-elite',
   },
   {
@@ -199,7 +199,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Premium Leather',
     listItemThree: 'Recliner',
     listItemFour: 'Weighs 32kg',
-    price: 1100,
+    price: 1430000,
     id: 'executive-lux',
   },
   {
@@ -209,7 +209,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Sleek Design',
     listItemThree: 'Wood Frame',
     listItemFour: 'Weighs 12kg',
-    price: 320,
+    price: 416000,
     id: 'modern-minimal',
   },
   {
@@ -219,7 +219,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Comfy Cushion',
     listItemThree: 'Leather Finish',
     listItemFour: 'Weighs 40kg',
-    price: 990,
+    price: 1287000,
     id: 'bold-statement',
   },
   {
@@ -229,7 +229,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Fully Reclines',
     listItemThree: 'Synthetic Leather',
     listItemFour: 'Weighs 38kg',
-    price: 900,
+    price: 1170000,
     id: 'relaxing-recliner',
   },
   {
@@ -239,7 +239,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Semi-Reclines',
     listItemThree: 'Plush Fabric',
     listItemFour: 'Weighs 35kg',
-    price: 780,
+    price: 1014000,
     id: 'cozy-corner',
   },
   {
@@ -249,7 +249,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Manual Recline',
     listItemThree: 'Vegan Leather',
     listItemFour: 'Weighs 40kg',
-    price: 850,
+    price: 1105000,
     id: 'comfort-cloud',
   },
   {
@@ -259,7 +259,7 @@ export const productsArr: Array<ProductCardProps> = [
     listItemTwo: 'Adjustable Backrest',
     listItemThree: 'Water-Resistant Fabric',
     listItemFour: 'Weighs 28kg',
-    price: 670,
+    price: 871000,
     id: 'urban-lounger',
   },
 ];

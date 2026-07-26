@@ -14,6 +14,9 @@ const Herosection = () => {
     <section className="h-[100vh] flex justify-center items-center">
       <main className="container">
         <div className=" flex flex-col gap-[3rem] items-center justify-center text-center">
+          <p className="uppercase tracking-[2px] text-[1.3rem] font-semibold text-green-700">
+            Free Shipping &middot; 30-Day Returns &middot; Lifetime Warranty
+          </p>
           <h1 className="text-center text-[4rem] md:text-[5rem] font-bold leading-[1.2]">
             {headingPrimary}{' '}
             <span className="herosection-p-bg">

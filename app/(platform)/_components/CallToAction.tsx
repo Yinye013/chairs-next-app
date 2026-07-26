@@ -120,27 +120,6 @@ const CallToAction = () => {
             </Link>
           </motion.div>
 
-          <motion.div
-            className="pt-[3.2rem] border-t border-[#15803d]/20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.7 }}
-          >
-            <div className="flex flex-wrap justify-center items-center gap-[3.2rem] text-[#666]">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#15803d] rounded-full"></div>
-                <span className="text-[1.6rem]">Free Shipping</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#15803d] rounded-full"></div>
-                <span className="text-[1.6rem]">30-Day Returns</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#15803d] rounded-full"></div>
-                <span className="text-[1.6rem]">Lifetime Warranty</span>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </motion.section>
