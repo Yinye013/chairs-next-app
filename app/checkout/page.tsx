@@ -96,7 +96,7 @@ const CheckoutPage: React.FC = () => {
                       <div className="text-center sm:text-left">
                         <h3 className="font-semibold text-lg">{item.title}</h3>
                         <p className="text-gray-500 text-sm">
-                          ${item.price.toFixed(2)}
+                          &#8358;{item.price.toLocaleString()}
                         </p>
                       </div>
                     </div>
@@ -118,7 +118,7 @@ const CheckoutPage: React.FC = () => {
                         </button>
                       </div>
                       <span className="text-md font-semibold">
-                        Subtotal: ${(item.price * item.quantity).toFixed(2)}
+                        Subtotal: &#8358;{(item.price * item.quantity).toLocaleString()}
                       </span>
                       <button
                         onClick={() => removeItem(item.id)}
@@ -132,7 +132,7 @@ const CheckoutPage: React.FC = () => {
 
                 <div className="mt-6 text-right">
                   <h3 className="text-xl font-bold">
-                    Total: ${total.toFixed(2)}
+                    Total: &#8358;{total.toLocaleString()}
                   </h3>
                 </div>
               </div>
@@ -256,7 +256,7 @@ const CheckoutPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <div className="mb-4 sm:mb-0">
               <h3 className="text-xl font-bold">
-                Order Total: ${total.toFixed(2)}
+                Order Total: &#8358;{total.toLocaleString()}
               </h3>
             </div>
             <div className="flex space-x-4">

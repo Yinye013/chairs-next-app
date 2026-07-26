@@ -47,7 +47,7 @@ const page = () => {
                 <div className="text-center sm:text-left">
                   <h2 className="font-semibold text-xl">{item.title}</h2>
                   <p className="text-gray-500 text-lg">
-                    ${item.price.toFixed(2)}
+                    &#8358;{item.price.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ const page = () => {
                   </button>
                 </div>
                 <span className="text-xl">
-                  Subtotal: ${(item.price * item.quantity).toFixed(2)}
+                  Subtotal: &#8358;{(item.price * item.quantity).toLocaleString()}
                 </span>
                 <button
                   onClick={() => removeItem(item.id)}
@@ -82,7 +82,7 @@ const page = () => {
           ))}
 
           <div className="mt-6 text-center sm:text-right">
-            <h3 className="text-2xl font-bold">Total: ${total.toFixed(2)}</h3>
+            <h3 className="text-2xl font-bold">Total: &#8358;{total.toLocaleString()}</h3>
             <div className="flex flex-col sm:flex-row justify-between items-center mt-5 space-y-4 sm:space-y-0">
               <Link
                 href="/bestsellers"

@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
       <div className="flex justify-between p-4">
-        <p className="text-[2.4rem] font-bold">$ {price}</p>
+        <p className="text-[2.4rem] font-bold">&#8358;{price.toLocaleString()}</p>
         <button
           className="flex items-center gap-[1.2rem] uppercase text-[1.4rem] px-[1.6rem] py-[0.8rem] bg-[#15803d] text-white font-bold rounded-md"
           onClick={() => handleAddtoCart({ title, id, price, imgPath })}
