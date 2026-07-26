@@ -25,28 +25,28 @@ export const useSignUp = () => {
 
 // SIGN OUT HOOK
 export const useSignOut = () => {
-  return useMutation(async () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('currentUser');
-    }
-  }, {
-    onSuccess: () => {
-      toast.success('Signed Out Successfully');
+  return useMutation(
+    async () => {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('currentUser');
+      }
     },
-    onError: (error: unknown) => {
-      toast.error(getErrorMessage(error, 'Error signing out'));
+    {
+      onSuccess: () => {
+        toast.success('Signed Out Successfully');
+      },
+      onError: (error: unknown) => {
+        toast.error(getErrorMessage(error, 'Error signing out'));
+      },
     },
-  });
+  );
 };
 
 //SIGN IN (LOGIN) HOOK
 export const useSignIn = () => {
   const signIn = useMutation(
     async (credentials: { email: string; password: string }) => {
-      // NOTE: path kept as originally hardcoded ('/api/users/login', distinct from
-      // '/auth/register') — only the localhost base URL was the bug. Verify this
-      // path is still correct once the backend API is confirmed reachable.
-      const { data } = await apiClient.post('/api/users/login', credentials);
+      const { data } = await apiClient.post('/auth/login', credentials);
       if (typeof window !== 'undefined') {
         localStorage.setItem('currentUser', JSON.stringify(data));
       }
