@@ -32,13 +32,6 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   const showNavbarFooter = !noNavbarFooterRoutes.includes(pathname);
   const isRouteLoading = useRouteLoading();
 
-  console.log(
-    'ClientLayout: isRouteLoading =',
-    isRouteLoading,
-    'pathname =',
-    pathname,
-  );
-
   return (
     <QueryClientProvider client={queryClient}>
       <>

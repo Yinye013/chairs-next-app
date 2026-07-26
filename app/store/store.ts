@@ -137,7 +137,6 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const cart = get().cart;
     const updatedCart = cart.filter((item: any) => item.id !== productId);
 
-    // Ensure local storage is updated
     if (typeof window !== 'undefined') {
       localStorage.setItem('cart', JSON.stringify(updatedCart));
     }

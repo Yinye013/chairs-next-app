@@ -36,7 +36,7 @@ function Features() {
             modules={[Autoplay]}
             className="flex justify-center items-center"
           >
-            {featuresArr.concat(featuresArr).map((feat) => (
+            {featuresArr.map((feat) => (
               <SwiperSlide key={feat.id}>
                 <div className="h-[200px] flex justify-center items-center">
                   <Image src={feat.imgPath} alt={'featured images'} width={200} height={200} />

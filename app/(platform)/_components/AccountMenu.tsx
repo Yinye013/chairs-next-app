@@ -23,8 +23,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
   const { mutate: signOut } = useSignOut();
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  console.log('Current User:', user);
-
   const handleSignOut = () => {
     if (user) {
       signOut();

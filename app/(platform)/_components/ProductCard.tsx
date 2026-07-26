@@ -20,9 +20,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleAddtoCart = (product: any) => {
     addtoCart(product);
-    // console log what has been added to the cart
-
-    console.log('Product added to cart:', product);
   };
 
   return (

@@ -10,12 +10,10 @@ export default function useRouteLoading() {
 
   useEffect(() => {
     // Start loading when pathname changes
-    console.log('Route change detected, starting loading state.');
     setIsLoading(true);
 
     // Complete loading after a longer delay to make it visible
     const timer = setTimeout(() => {
-      console.log('Stopping loading state.');
       setIsLoading(false);
     }, 800);
 
