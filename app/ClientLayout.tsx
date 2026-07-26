@@ -3,6 +3,7 @@
 import Footer from './(platform)/_components/Footer';
 import Navbar from './(platform)/_components/Navbar';
 import LoadingBar from './components/LoadingBar';
+import SmoothScrollProvider from './components/SmoothScrollProvider';
 import { usePathname } from 'next/navigation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -34,14 +35,14 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <>
+      <SmoothScrollProvider>
         <LoadingBar isLoading={isRouteLoading} />
         <div className="relative">
           {showNavbarFooter && <Navbar />}
           <main className="container min-h-screen">{children}</main>
           {showNavbarFooter && <Footer />}
         </div>
-      </>
+      </SmoothScrollProvider>
     </QueryClientProvider>
   );
 }

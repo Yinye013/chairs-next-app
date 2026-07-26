@@ -1,18 +1,11 @@
-"use client";
 import { GiFizzingFlask } from "react-icons/gi";
 import { GoSmiley } from "react-icons/go";
 import { GiTechnoHeart } from "react-icons/gi";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import useMultipleAnimations from "../../hooks/useMultipleAnimations";
+import FadeInSection from "../../components/FadeInSection";
 
 const About = () => {
-  let { ref, inView } = useInView();
-  const animation = useAnimation();
-  useMultipleAnimations(inView, animation);
-
   return (
-    <motion.div ref={ref} animate={animation} className="section-pad" id="about">
+    <FadeInSection className="section-pad" id="about">
       <div className="container">
         <p className="subheading">what sets our chairs apart</p>
         <h2 className="heading-secondary">What Makes Our Chairs Unique?</h2>
@@ -46,7 +39,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </FadeInSection>
   );
 };
 

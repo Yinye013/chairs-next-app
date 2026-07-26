@@ -25,18 +25,21 @@ export const useSignUp = () => {
 
 // SIGN OUT HOOK
 export const useSignOut = () => {
-  return useMutation(async () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('currentUser');
-    }
-  }, {
-    onSuccess: () => {
-      toast.success('Signed Out Successfully');
+  return useMutation(
+    async () => {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('currentUser');
+      }
     },
-    onError: (error: unknown) => {
-      toast.error(getErrorMessage(error, 'Error signing out'));
+    {
+      onSuccess: () => {
+        toast.success('Signed Out Successfully');
+      },
+      onError: (error: unknown) => {
+        toast.error(getErrorMessage(error, 'Error signing out'));
+      },
     },
-  });
+  );
 };
 
 //SIGN IN (LOGIN) HOOK

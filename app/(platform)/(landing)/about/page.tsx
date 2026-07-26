@@ -1,25 +1,18 @@
-"use client";
-
-import Lottie from "lottie-react";
-import ChairAnimation from "@/animations/animation.json";
-import StoryAnimation from "@/animations/story.json";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import useMultipleAnimations from "@/app/hooks/useMultipleAnimations";
+import ChairAnimation from '@/animations/animation.json';
+import StoryAnimation from '@/animations/story.json';
+import FadeInSection from '@/app/components/FadeInSection';
+import ClientLottie from '@/app/components/ClientLottie';
 
 export default function AboutPage() {
-  let { ref, inView } = useInView();
-  const animation = useAnimation();
-  useMultipleAnimations(inView, animation);
   return (
-    <motion.div ref={ref} animate={animation}>
+    <FadeInSection>
       <div className="grid grid-cols-1 items-center lg:grid-cols-2  ">
         <div className="left-text ">
           <h1 className="text-[3rem] text-[#555] font-bold tracking-wide">
             Our <span className="text-green-700">Mission</span>
           </h1>
           <p className="text-[1.6rem] tracking-wide mt-[3rem]">
-            {" "}
+            {' '}
             At TheChairShop, our mission is to craft timeless comfort and style
             through the artistry of seating. We are dedicated to providing our
             customers with meticulously designed and expertly crafted chairs
@@ -34,7 +27,7 @@ export default function AboutPage() {
           </p>
         </div>
         <div>
-          <Lottie animationData={ChairAnimation} width={20} />
+          <ClientLottie animationData={ChairAnimation} width={20} />
         </div>
       </div>
       <div>
@@ -46,7 +39,7 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
-            <Lottie animationData={StoryAnimation} />
+            <ClientLottie animationData={StoryAnimation} />
           </div>
           <div>
             <p className="text-[1.6rem] tracking-wide mt-[3rem] pb-[2rem] ">
@@ -63,6 +56,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </FadeInSection>
   );
 }
