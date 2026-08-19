@@ -110,3 +110,14 @@ header {
   margin-bottom: 2rem;
   border-radius: 5px;
 }
+
+/* Swiper theme: swiper's own CSS re-declares --swiper-theme-color on :root
+   after globals.css loads, so scope the override to .swiper to win. */
+.swiper,
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination {
+  --swiper-theme-color: #15803d;
+  --swiper-navigation-color: #15803d;
+  --swiper-pagination-color: #15803d;
+}

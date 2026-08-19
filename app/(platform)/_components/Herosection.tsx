@@ -11,7 +11,7 @@ const Herosection = () => {
     'Because every moment you sit should be filled with joy, sparking a sense of inspiration and enveloping you in complete relaxation, making every seat an experience to cherish.';
 
   return (
-    <section className="h-[100vh] flex justify-center items-center">
+    <section id="hero" className="h-[100vh] flex justify-center items-center">
       <main className="container">
         <div className=" flex flex-col gap-[3rem] items-center justify-center text-center">
           <p className="uppercase tracking-[2px] text-[1.3rem] font-semibold text-green-700">

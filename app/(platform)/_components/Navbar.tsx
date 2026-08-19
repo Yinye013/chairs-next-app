@@ -21,10 +21,30 @@ const Navbar = () => {
   }, []);
   const { cart } = useCartStore();
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const [scrolled, setScrolled] = useState<boolean>(false);
 
   // Close account menu when pathname changes
   useEffect(() => {
     setShowAccountMenu(false);
+  }, [pathname]);
+
+  // Give the fixed navbar a solid background once the hero scrolls out of view.
+  // Pages without a hero (#hero absent) keep the solid navbar by default.
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) {
+      setScrolled(true);
+      return;
+    }
+    setScrolled(false);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting),
+      // fire once the hero is almost fully past the navbar
+      { rootMargin: '-20% 0px 0px 0px', threshold: 0 },
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
   }, [pathname]);
 
   function toggleNav() {
@@ -55,8 +75,14 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="flex justify-between items-center h-[9.6rem] ">
-      <div className="container flex justify-between items-center sticky">
+    <header
+      className={`fixed top-0 left-0 right-0 z-[100] flex justify-between items-center h-[9.6rem] transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-md'
+          : 'bg-transparent shadow-none'
+      }`}
+    >
+      <div className="container flex justify-between items-center">
         <Logo />
         <nav>
           <ul
