@@ -121,3 +121,117 @@ header {
   --swiper-navigation-color: #15803d;
   --swiper-pagination-color: #15803d;
 }
+
+/* Testimonial carousel: stretch slides so cards share a row height
+   regardless of quote length. */
+.testimonial-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+/* Liquid glass navbar (iOS 26 style): genuinely transparent rather than
+   frosted — a light blur paired with a strong saturation/brightness boost so
+   colour bleeds through and refracts, plus a hairline top highlight and a
+   soft bottom edge to catch the light. */
+.nav-glass {
+  position: fixed;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.14) 45%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
+  /* url(#liquid-glass) is an SVG feDisplacementMap (see GlassFilter.tsx): it
+     physically bends the backdrop, so text visibly warps as it scrolls under
+     the pane. Blur/saturate alone can only soften and tint it. */
+  -webkit-backdrop-filter: url(#liquid-glass) blur(2px) saturate(230%)
+    brightness(114%);
+  backdrop-filter: url(#liquid-glass) blur(2px) saturate(230%)
+    brightness(114%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    /* top specular highlight, the lit rim of the pane */
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+    inset 0 2px 6px -2px rgba(255, 255, 255, 0.5),
+    /* bottom inner glow, light pooling at the thick edge */
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -8px 14px -12px rgba(255, 255, 255, 0.6),
+    /* cast shadow so the pane floats above the page */
+    0 6px 28px -10px rgba(0, 0, 0, 0.16);
+}
+
+/* Edge refraction: real glass bends light hardest at its rim, so blur and
+   displace the backdrop far more in a thin band at the bottom edge than
+   across the face of the pane. */
+.nav-glass::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 14px;
+  pointer-events: none;
+  -webkit-backdrop-filter: url(#liquid-glass) blur(5px) saturate(260%)
+    brightness(118%);
+  backdrop-filter: url(#liquid-glass) blur(5px) saturate(260%)
+    brightness(118%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 85%);
+  mask-image: linear-gradient(to bottom, transparent, #000 85%);
+}
+
+/* A slow travelling sheen, so the surface reads as liquid rather than a
+   static frosted panel. */
+.nav-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 48%,
+    rgba(255, 255, 255, 0.12) 56%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  animation: nav-sheen 9s ease-in-out infinite;
+}
+
+@keyframes nav-sheen {
+  0%,
+  100% {
+    background-position: 130% 0;
+  }
+  50% {
+    background-position: -30% 0;
+  }
+}
+
+/* Keep the bar's own content above the ::before/::after light layers */
+.nav-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glass is transparent enough that dark sections can swallow the dark nav
+   text, so lift it off the background with a soft light halo. */
+.nav-glass a,
+.nav-glass .navlink,
+.nav-glass span {
+  text-shadow:
+    0 0 2px rgba(255, 255, 255, 0.95),
+    0 0 8px rgba(255, 255, 255, 0.85),
+    0 1px 3px rgba(255, 255, 255, 0.9);
+}
+
+/* Browsers without backdrop-filter get a more opaque bar so text stays legible */
+@supports not (backdrop-filter: blur(3px)) {
+  .nav-glass {
+    background: rgba(255, 255, 255, 0.78);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-glass::before {
+    animation: none;
+  }
+}

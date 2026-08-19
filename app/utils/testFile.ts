@@ -2,6 +2,10 @@ type testObj = {
   imgPath: string;
   testimonial: string;
   clientName: string;
+  role: string;
+  location: string;
+  rating: number;
+  product: string;
 };
 
 export const testArr: Array<testObj> = [
@@ -11,18 +15,61 @@ export const testArr: Array<testObj> = [
     testimonial:
       'These chairs are worth every penny for their durability. A true investment!',
     clientName: 'Arthur O',
+    role: 'Architect',
+    location: 'Lagos, NG',
+    rating: 5,
+    product: 'The Executive Lux',
   },
   {
     imgPath: '/assets/testimonial-images/foto-sushi-6anudmpILw4-unsplash.jpg',
     testimonial:
       'These chairs changed my space, making it more comfortable and stylish.',
     clientName: 'Michael B',
+    role: 'Interior Designer',
+    location: 'London, UK',
+    rating: 5,
+    product: 'The Elegant Touch',
   },
   {
     imgPath: '/assets/testimonial-images/ivana-cajina-_7LbC5J-jw4-unsplash.jpg',
     testimonial:
       'The ethical considerations in these chair choices won me over.',
     clientName: 'Romeo B',
+    role: 'Product Manager',
+    location: 'Toronto, CA',
+    rating: 5,
+    product: 'The Modern Minimal',
+  },
+  {
+    imgPath: '/assets/testimonial-images/brooke-cagle-KriecpTIWgY-unsplash.jpg',
+    testimonial:
+      'I spend eight hours a day in mine and my back has never thanked me more.',
+    clientName: 'Amara N',
+    role: 'Software Engineer',
+    location: 'Berlin, DE',
+    rating: 5,
+    product: 'The Ergonomic Elite',
+  },
+  {
+    imgPath:
+      '/assets/testimonial-images/charles-etoroma-95UF6LXe-Lo-unsplash.jpg',
+    testimonial:
+      'Shipping was quick and the build quality genuinely exceeded the photos.',
+    clientName: 'Daniel K',
+    role: 'Studio Owner',
+    location: 'Nairobi, KE',
+    rating: 5,
+    product: 'The Luxury Lounge',
+  },
+  {
+    imgPath: '/assets/testimonial-images/aiony-haust-3TLl_97HNJo-unsplash.jpg',
+    testimonial:
+      'It is the one piece in my living room every single guest asks about.',
+    clientName: 'Sofia R',
+    role: 'Photographer',
+    location: 'Lisbon, PT',
+    rating: 5,
+    product: 'The Bold Statement',
   },
 ];
 
