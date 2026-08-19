@@ -39,6 +39,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         <LoadingBar isLoading={isRouteLoading} />
         <div className="relative">
           {showNavbarFooter && <Navbar />}
+          {/* Navbar is fixed, so reserve its height in the flow */}
+          {showNavbarFooter && <div className="h-[9.6rem]" aria-hidden />}
           <main className="container min-h-screen">{children}</main>
           {showNavbarFooter && <Footer />}
         </div>
