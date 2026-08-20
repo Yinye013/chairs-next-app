@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 
+// Shape accepted by addItem. ProductCard only ever passes
+// { title, id, price, imgPath }, but the wider type is kept so a full product
+// object can be handed in directly.
 interface Product {
   imgPath: string;
   title: string;
@@ -12,33 +15,7 @@ interface Product {
   id: string;
 }
 
-interface ProductStore {
-  products: Product[];
-  setProducts: (products: Product[]) => void;
-  // for pagination
-  currentPage: number;
-  rowsPerPage: number;
-  setPage: (page: number) => void;
-  setRowsPerPage: (rows: number) => void;
-}
-
-export const useProductStore = create<ProductStore>((set) => ({
-  products: [],
-  setProducts: (products) => set({ products }),
-  //   for pagination
-  currentPage: 0,
-  rowsPerPage: 2,
-  setPage: (page) => set({ currentPage: page }),
-  setRowsPerPage: (rows) => set({ rowsPerPage: rows }),
-}));
-
 // cart. Create a cart store that will hold the cart items and the functions to add and remove items from the cart.
-// interface Product {
-//   id: string;
-//   title: string;
-//   price: number;
-//   quantity: number; // Add quantity here
-// }
 interface CartItems {
   id: string; // Product ID
   title: string;

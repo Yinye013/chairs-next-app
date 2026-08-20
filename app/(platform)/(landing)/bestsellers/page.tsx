@@ -9,7 +9,6 @@ export default function BestSellerPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
-  // const { products, isLoading, error } = useGetProducts();
   // create a function to filter products via search term
 
   const handleSearch = (event: any) => {
@@ -39,8 +38,6 @@ export default function BestSellerPage() {
   );
   return (
     <div>
-      {/* {isLoading && <p>Loading...</p>} */}
-
       <div className="pt-6 flex flex-col gap-[1.6rem] md:flex-row md:justify-between md:items-center mb-10">
         <h1 className="heading-tertiary mt-[2.4rem]">
           Here are some of our{' '}
