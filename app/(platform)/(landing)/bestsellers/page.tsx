@@ -1,41 +1,38 @@
-'use client';
-import { productsArr } from '@/app/utils/testFile';
-import { useState } from 'react';
 import ProductCard from '@/app/(platform)/_components/ProductCard';
-import TextField from '@mui/material/TextField';
-import Pagination from '@mui/material/Pagination';
+import BestsellersControls from './_components/BestsellersControls';
+import { sanityFetch } from '@/sanity/lib/fetch';
+import {
+  PRODUCTS_PAGE_QUERY,
+  PRODUCTS_COUNT_QUERY,
+} from '@/sanity/lib/queries';
+import type { Product } from '@/app/utils/types';
 
-export default function BestSellerPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 6;
-  // create a function to filter products via search term
+const PRODUCTS_PER_PAGE = 6;
 
-  const handleSearch = (event: any) => {
-    setSearchTerm(event.target.value);
-  };
+type PageProps = {
+  searchParams: { q?: string; page?: string };
+};
 
-  // filtering
-  const filteredProducts = productsArr?.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+/**
+ * Search and pagination are server-side: they live in the URL, so results are
+ * linkable, the back button works, and only the current page of products is
+ * ever sent to the browser. GROQ does the filtering and slicing.
+ */
+export default async function BestSellerPage({ searchParams }: PageProps) {
+  const q = (searchParams.q || '').trim();
+  const requestedPage = Number(searchParams.page) || 1;
+  const currentPage = Math.max(1, requestedPage);
 
-  // pagination
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const totalPages = Math.ceil(filteredProducts?.length / productsPerPage);
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    page: number,
-  ) => {
-    event.preventDefault();
-    setCurrentPage(page);
-  };
+  const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const params = { q, start, end: start + PRODUCTS_PER_PAGE };
 
-  const currentProducts = filteredProducts?.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct,
-  );
+  const [products, total] = await Promise.all([
+    sanityFetch<Product[]>({ query: PRODUCTS_PAGE_QUERY, params }),
+    sanityFetch<number>({ query: PRODUCTS_COUNT_QUERY, params: { q } }),
+  ]);
+
+  const totalPages = Math.max(1, Math.ceil(total / PRODUCTS_PER_PAGE));
+
   return (
     <div>
       <div className="pt-6 flex flex-col gap-[1.6rem] md:flex-row md:justify-between md:items-center mb-10">
@@ -44,57 +41,26 @@ export default function BestSellerPage() {
           <span className="text-[#15803d]">bestsellers!</span>
         </h1>
 
-        <TextField
-          placeholder="Search for products..."
-          className="w-full max-w-md px-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none transition duration-150 ease-in-out text-gray-700 placeholder-gray-400"
-          value={searchTerm}
-          onChange={handleSearch}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': { borderColor: 'gray' },
-              '&:hover fieldset': { borderColor: 'green' },
-              '&.Mui-focused fieldset': { borderColor: 'green' },
-              fontSize: '1.4rem',
-            },
-          }}
+        <BestsellersControls
+          totalPages={totalPages}
+          currentPage={currentPage}
+          initialQuery={q}
         />
-      </div>
-      <div className="grid grid-cols-1 gap-[6rem] md:grid-cols-2 lg:grid-cols-3 ">
-        {/* product card */}
-        {currentProducts?.map((product) => (
-          <div key={product.id}>
-            <ProductCard
-              imgPath={product.imgPath}
-              title={product.title}
-              listItemOne={product.listItemOne}
-              listItemTwo={product.listItemTwo}
-              listItemThree={product.listItemThree}
-              listItemFour={product.listItemFour}
-              price={product.price}
-              id={product.id}
-            />
-          </div>
-        ))}
       </div>
 
-      <div className="flex justify-center text-[1.2rem] mt-8 mb-6">
-        <Pagination
-          count={totalPages} // Total pages
-          page={currentPage} // Current page
-          onChange={handlePageChange} // Handle page change
-          shape="rounded"
-          sx={{
-            '& .MuiPaginationItem-root': {
-              color: 'gray', // Default text color
-              fontSize: '1.5rem', // Font size
-              '&.Mui-selected': {
-                backgroundColor: '#15803d', // Background for selected page
-                color: 'white', // Text color for selected page
-              },
-            },
-          }}
-        />
-      </div>
+      {products.length === 0 ? (
+        <p className="text-[1.6rem] text-[#777] py-[4.8rem] text-center">
+          {q
+            ? `No products match “${q}”.`
+            : 'No products yet. Add some in the studio.'}
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-[6rem] md:grid-cols-2 lg:grid-cols-3">
+          {products.map((product) => (
+            <ProductCard key={product.id} {...product} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

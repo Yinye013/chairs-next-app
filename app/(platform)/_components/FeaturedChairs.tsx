@@ -1,21 +1,19 @@
-'use client';
+import FeaturedChairsCarousel from './FeaturedChairsCarousel';
+import { sanityFetch } from '@/sanity/lib/fetch';
+import { FEATURED_PRODUCTS_QUERY } from '@/sanity/lib/queries';
+import type { Product } from '@/app/utils/types';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/autoplay';
-import { productsArr } from '@/app/utils/testFile';
-import { useIsMobile } from '@/app/hooks/useMediaQuery';
+/**
+ * Server Component: fetches the featured products, then hands them to the
+ * client carousel. Replaces the old module-level `productsArr.slice(0, 9)` —
+ * which products are featured is now editorial, set per-product in the studio.
+ */
+const FeaturedChairs = async () => {
+  const featured = await sanityFetch<Product[]>({
+    query: FEATURED_PRODUCTS_QUERY,
+  });
 
-const featured = productsArr.slice(0, 9);
-
-const FeaturedChairs = () => {
-  // Autoplay competes with touch-scrolling on phones, so let mobile users
-  // drive the carousel themselves.
-  const isMobile = useIsMobile();
+  if (featured.length === 0) return null;
 
   return (
     <div className="section-pad">
@@ -25,46 +23,7 @@ const FeaturedChairs = () => {
       </div>
       {/* Full-bleed: breaks out of the ancestor .container's max-width/padding to span the viewport */}
       <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-        <Swiper
-          modules={[Autoplay, Navigation]}
-          spaceBetween={24}
-          slidesPerView={1.15}
-          slidesOffsetBefore={32}
-          slidesOffsetAfter={32}
-          breakpoints={{
-            640: { slidesPerView: 2.15 },
-            1024: { slidesPerView: 3.15 },
-            1440: { slidesPerView: 4.15 },
-          }}
-          navigation
-          autoplay={
-            isMobile ? false : { delay: 3500, disableOnInteraction: false }
-          }
-        >
-          {featured.map((product) => (
-            <SwiperSlide key={product.id}>
-              <Link href="/bestsellers" className="block group">
-                <div className="overflow-hidden rounded-lg">
-                  <Image
-                    src={product.imgPath}
-                    alt={product.title}
-                    width={400}
-                    height={320}
-                    className="w-full h-[24rem] object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
-                <div className="pt-[1.2rem] flex justify-between items-center">
-                  <h3 className="text-[1.8rem] font-semibold">
-                    {product.title}
-                  </h3>
-                  <span className="text-[1.6rem] font-bold text-green-700">
-                    &#8358;{product.price.toLocaleString()}
-                  </span>
-                </div>
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <FeaturedChairsCarousel featured={featured} />
       </div>
     </div>
   );

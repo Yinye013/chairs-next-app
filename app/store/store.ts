@@ -1,18 +1,16 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 
-// Shape accepted by addItem. ProductCard only ever passes
-// { title, id, price, imgPath }, but the wider type is kept so a full product
-// object can be handed in directly.
-interface Product {
-  imgPath: string;
-  title: string;
-  listItemOne: string;
-  listItemTwo: string;
-  listItemThree: string;
-  listItemFour: string;
-  price: number;
+// Shape accepted by addItem — exactly the fields a cart line needs.
+//
+// `id` is the product slug (e.g. 'classic-comfort'), never Sanity's _id, and
+// `imgPath` is a resolved image URL. Both are persisted to localStorage, so
+// changing either format orphans visitors' existing carts.
+interface CartInput {
   id: string;
+  title: string;
+  price: number;
+  imgPath: string;
 }
 
 // cart. Create a cart store that will hold the cart items and the functions to add and remove items from the cart.
@@ -25,7 +23,7 @@ interface CartItems {
 }
 interface CartStore {
   cart: CartItems[];
-  addItem: (product: Product) => void;
+  addItem: (product: CartInput) => void;
   removeItem: (productId: string) => void;
   incrementQuantity: (productId: string) => void;
   decrementQuantity: (productId: string) => void;
