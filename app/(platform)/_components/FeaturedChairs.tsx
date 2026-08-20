@@ -1,7 +1,5 @@
 import FeaturedChairsCarousel from './FeaturedChairsCarousel';
-import { sanityFetch } from '@/sanity/lib/fetch';
-import { FEATURED_PRODUCTS_QUERY } from '@/sanity/lib/queries';
-import type { Product } from '@/app/utils/types';
+import { getFeaturedProducts } from '@/app/services/products';
 
 /**
  * Server Component: fetches the featured products, then hands them to the
@@ -9,9 +7,7 @@ import type { Product } from '@/app/utils/types';
  * which products are featured is now editorial, set per-product in the studio.
  */
 const FeaturedChairs = async () => {
-  const featured = await sanityFetch<Product[]>({
-    query: FEATURED_PRODUCTS_QUERY,
-  });
+  const featured = await getFeaturedProducts();
 
   if (featured.length === 0) return null;
 
