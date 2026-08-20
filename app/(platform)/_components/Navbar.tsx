@@ -1,20 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { HiBars3BottomLeft } from 'react-icons/hi2';
 import { IoCartOutline } from 'react-icons/io5';
 import { RxAvatar } from 'react-icons/rx';
-import { MdClose } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Logo from './Logo';
 import AccountMenu from './AccountMenu';
+import MobileMenu from './MobileMenu';
 import { useCartStore } from '@/app/store/store';
 import GlassFilter from '@/app/components/GlassFilter';
+import { MENU_LINKS } from './navLinks';
 
 const Navbar = () => {
   const pathname = usePathname();
-  const [navOpen, setNavOpen] = useState<boolean>(false);
   const [showAccountMenu, setShowAccountMenu] = useState<boolean>(false);
   const avatarRef = useRef<HTMLDivElement>(null);
   const toggleAccountMenu = useCallback(() => {
@@ -28,58 +27,26 @@ const Navbar = () => {
     setShowAccountMenu(false);
   }, [pathname]);
 
-  function toggleNav() {
-    setNavOpen(!navOpen);
-  }
-
-  const MENU_LINKS = [
-    {
-      name: 'About',
-      link: '/about',
-    },
-    {
-      name: 'Bestsellers',
-      link: '/bestsellers',
-    },
-    {
-      name: 'Hit Us Up',
-      link: '/hit-us-up',
-    },
-    // {
-    //   name: "Login",
-    //   link: "/login",
-    // },
-    // {
-    //   name: "Sign Up",
-    //   link: "/sign-up",
-    // },
-  ];
-
   return (
-    <header
-      className="nav-glass top-0 left-0 right-0 z-[100] flex justify-between items-center h-[9.6rem]"
-    >
+    <header className="nav-glass top-0 left-0 right-0 z-[100] flex justify-between items-center h-[9.6rem]">
       <GlassFilter />
       <div className="container flex justify-between items-center">
         <Logo />
-        <nav>
-          <ul
-            className={`${
-              navOpen
-                ? 'flex flex-col gap-[1.7rem] absolute top-1/2 left-1/2  p-20 w-[100%] h-[100vh] backdrop-blur-lg opacity-1 pointer-events-auto z-50'
-                : 'hidden'
-            } md:block lg:flex flex-row gap-[4.8rem]`}
-          >
+
+        {/* Primary links, inline in the bar from `lg` up */}
+        <nav className="hidden lg:block">
+          <ul className="flex flex-row gap-[4.8rem]">
             {MENU_LINKS.map(({ link, name }) => (
-              <Link
-                href={link}
-                key={link}
-                className={`${
-                  pathname === link && 'text-[#15803d] font-bold'
-                } navlink text-[1.8rem] font-semibold hover:text-green-700 transition-all`}
-              >
-                {name}
-              </Link>
+              <li key={link}>
+                <Link
+                  href={link}
+                  className={`${
+                    pathname === link ? 'text-[#15803d] font-bold' : ''
+                  } navlink text-[1.8rem] font-semibold hover:text-green-700 transition-all`}
+                >
+                  {name}
+                </Link>
+              </li>
             ))}
           </ul>
         </nav>
@@ -111,16 +78,9 @@ const Navbar = () => {
           onClose={() => setShowAccountMenu(false)}
           triggerRef={avatarRef}
         />
-        <div
-          onClick={toggleNav}
-          className="block transition-all duration-500 lg:hidden"
-        >
-          {navOpen ? (
-            <MdClose size={'30px'} />
-          ) : (
-            <HiBars3BottomLeft size={'30px'} />
-          )}
-        </div>
+
+        {/* Hamburger + overlay; renders nothing at all on desktop */}
+        <MobileMenu />
       </div>
     </header>
   );

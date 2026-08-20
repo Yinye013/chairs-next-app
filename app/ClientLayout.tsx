@@ -2,12 +2,11 @@
 
 import Footer from './(platform)/_components/Footer';
 import Navbar from './(platform)/_components/Navbar';
-import LoadingBar from './components/LoadingBar';
+import RouteLoadingBar from './components/RouteLoadingBar';
 import SmoothScrollProvider from './components/SmoothScrollProvider';
 import { usePathname } from 'next/navigation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import useRouteLoading from './hooks/useRouteLoading';
+import { Suspense, useMemo } from 'react';
 
 type ClientLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -31,12 +30,15 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   const pathname = usePathname();
   const noNavbarFooterRoutes = ['/login', '/sign-up'];
   const showNavbarFooter = !noNavbarFooterRoutes.includes(pathname);
-  const isRouteLoading = useRouteLoading();
 
   return (
     <QueryClientProvider client={queryClient}>
       <SmoothScrollProvider>
-        <LoadingBar isLoading={isRouteLoading} />
+        {/* Isolated behind Suspense: it reads searchParams, which would
+            otherwise opt every page out of static prerendering. */}
+        <Suspense fallback={null}>
+          <RouteLoadingBar />
+        </Suspense>
         <div className="relative">
           {showNavbarFooter && <Navbar />}
           {/* Navbar is fixed, so reserve its height in the flow */}

@@ -1,44 +1,19 @@
 import { create } from 'zustand';
 import { toast } from 'react-toastify';
 
-interface Product {
-  imgPath: string;
-  title: string;
-  listItemOne: string;
-  listItemTwo: string;
-  listItemThree: string;
-  listItemFour: string;
-  price: number;
+// Shape accepted by addItem — exactly the fields a cart line needs.
+//
+// `id` is the product slug (e.g. 'classic-comfort'), never Sanity's _id, and
+// `imgPath` is a resolved image URL. Both are persisted to localStorage, so
+// changing either format orphans visitors' existing carts.
+interface CartInput {
   id: string;
+  title: string;
+  price: number;
+  imgPath: string;
 }
-
-interface ProductStore {
-  products: Product[];
-  setProducts: (products: Product[]) => void;
-  // for pagination
-  currentPage: number;
-  rowsPerPage: number;
-  setPage: (page: number) => void;
-  setRowsPerPage: (rows: number) => void;
-}
-
-export const useProductStore = create<ProductStore>((set) => ({
-  products: [],
-  setProducts: (products) => set({ products }),
-  //   for pagination
-  currentPage: 0,
-  rowsPerPage: 2,
-  setPage: (page) => set({ currentPage: page }),
-  setRowsPerPage: (rows) => set({ rowsPerPage: rows }),
-}));
 
 // cart. Create a cart store that will hold the cart items and the functions to add and remove items from the cart.
-// interface Product {
-//   id: string;
-//   title: string;
-//   price: number;
-//   quantity: number; // Add quantity here
-// }
 interface CartItems {
   id: string; // Product ID
   title: string;
@@ -48,7 +23,7 @@ interface CartItems {
 }
 interface CartStore {
   cart: CartItems[];
-  addItem: (product: Product) => void;
+  addItem: (product: CartInput) => void;
   removeItem: (productId: string) => void;
   incrementQuantity: (productId: string) => void;
   decrementQuantity: (productId: string) => void;

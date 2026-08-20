@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import ClientLayout from './ClientLayout';
+import { satoshi } from './fonts/satoshi';
 
 export const metadata: Metadata = {
   title: 'Chairs App',
@@ -13,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={satoshi.variable}>
       <body>
         <ClientLayout>{children}</ClientLayout>
       </body>

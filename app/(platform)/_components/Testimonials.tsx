@@ -7,8 +7,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { Quote, Star } from 'lucide-react';
 import { testArr } from '@/app/utils/testFile';
+import { useIsMobile } from '@/app/hooks/useMediaQuery';
 
 const Testimonials = () => {
+  // Autoplay competes with touch-scrolling on phones, so let mobile users
+  // drive the carousel themselves.
+  const isMobile = useIsMobile();
+
   return (
     <div className="section-pad">
       <div className="container">
@@ -16,12 +21,12 @@ const Testimonials = () => {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-[2.4rem] mb-[5rem]">
           <div>
             <p className="subheading">testimonials</p>
-            <h2 className="heading-secondary !mb-0 max-w-[20ch]">
+            <h2 className="heading-secondary !mb-0 max-w-[20ch] !text-[2.4rem] sm:!text-[3rem]">
               Loved by people who sit for a living
             </h2>
           </div>
 
-          <div className="flex items-center gap-[1.2rem] shrink-0">
+          <div className="flex flex-wrap items-center gap-[1.2rem]">
             <div className="flex -space-x-3">
               {testArr.slice(0, 4).map((t) => (
                 <Image
@@ -30,12 +35,12 @@ const Testimonials = () => {
                   alt=""
                   width={44}
                   height={44}
-                  className="w-[4.4rem] h-[4.4rem] rounded-full object-cover border-2 border-white"
+                  className="w-[3.6rem] h-[3.6rem] sm:w-[4.4rem] sm:h-[4.4rem] rounded-full object-cover border-2 border-white"
                 />
               ))}
             </div>
             <div>
-              <div className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
@@ -68,12 +73,14 @@ const Testimonials = () => {
             1024: { slidesPerView: 3.15 },
           }}
           navigation
-          autoplay={{ delay: 4500, disableOnInteraction: false }}
+          autoplay={
+            isMobile ? false : { delay: 4500, disableOnInteraction: false }
+          }
           className="testimonial-swiper !pb-[1rem]"
         >
           {testArr.map((test) => (
             <SwiperSlide key={test.clientName} className="!h-auto">
-              <figure className="group relative flex flex-col justify-between h-full bg-white border border-[#e8e8e8] rounded-2xl p-[3.2rem] transition-all duration-300 hover:border-[#15803d] hover:shadow-[0_12px_32px_-12px_rgba(21,128,61,0.25)]">
+              <figure className="group relative flex flex-col justify-between h-full bg-white border border-[#e8e8e8] rounded-2xl p-[2.2rem] sm:p-[3.2rem] transition-all duration-300 hover:border-[#15803d] hover:shadow-[0_12px_32px_-12px_rgba(21,128,61,0.25)]">
                 <Quote
                   className="absolute top-[2.4rem] right-[2.4rem] w-8 h-8 text-[#15803d]/10 group-hover:text-[#15803d]/25 transition-colors"
                   aria-hidden
@@ -93,7 +100,7 @@ const Testimonials = () => {
                     ))}
                   </div>
 
-                  <blockquote className="text-[1.8rem] leading-[1.6] text-[#333] mb-[2.4rem]">
+                  <blockquote className="text-[1.6rem] sm:text-[1.8rem] leading-[1.6] text-[#333] mb-[2.4rem]">
                     &ldquo;{test.testimonial}&rdquo;
                   </blockquote>
                 </div>
@@ -102,7 +109,7 @@ const Testimonials = () => {
                   <p className="text-[1.3rem] text-[#15803d] font-semibold mb-[1.6rem]">
                     Verified purchase &middot; {test.product}
                   </p>
-                  <div className="flex items-center gap-[1.2rem] pt-[1.6rem] border-t border-[#eee]">
+                  <div className="flex items-center gap-[1.2rem] pt-[1.6rem] border-t border-[#eee] min-w-0">
                     <Image
                       src={test.imgPath}
                       alt=""
@@ -112,9 +119,9 @@ const Testimonials = () => {
                       // browser's lazy-load visibility check and leaves these
                       // avatars permanently unloaded.
                       loading="eager"
-                      className="w-[4.8rem] h-[4.8rem] rounded-full object-cover"
+                      className="w-[4rem] h-[4rem] sm:w-[4.8rem] sm:h-[4.8rem] shrink-0 rounded-full object-cover"
                     />
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-[1.6rem] font-bold text-[#222] leading-tight">
                         {test.clientName}
                       </p>
