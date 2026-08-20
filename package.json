@@ -8,12 +8,18 @@
     "start": "next start",
     "lint": "next lint",
     "scan": "tsc --project tsconfig.json --pretty --noEmit",
-    "clean": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
+    "clean": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}",
+    "studio": "sanity dev",
+    "studio:deploy": "sanity deploy",
+    "migrate:products": "tsx scripts/migrate-products.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
     "@mui/material": "^6.1.8",
+    "@sanity/client": "^6.29.1",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^3.99.0",
     "@tanstack/react-query": "^4.36.1",
     "axios": "^1.7.9",
     "framer-motion": "^10.16.4",
@@ -22,6 +28,7 @@
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.468.0",
     "next": "^14.2.35",
+    "next-sanity": "^9.12.3",
     "nextjs-toploader": "^3.8.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -31,6 +38,8 @@
     "react-simple-typewriter": "^5.0.1",
     "react-spinners": "^0.14.1",
     "react-toastify": "^9.1.3",
+    "sanity": "^3.99.0",
+    "styled-components": "^6.5.3",
     "swiper": "^11.0.1",
     "zustand": "^5.0.1"
   },
@@ -39,8 +48,10 @@
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.4.15",
+    "dotenv": "^17.4.2",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
+    "tsx": "^4.23.12",
     "typescript": "5.2.2"
   }
 }
