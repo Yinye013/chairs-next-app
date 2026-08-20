@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,7 +9,7 @@
   --swiper-theme-color: #15803d;
 }
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
 }
 
 html {
@@ -93,10 +91,10 @@ header {
 .section-pad {
   padding: 9.6rem 0;
 }
-.hitusup {
-  border-bottom-right-radius: 20px;
-  border-top-right-radius: 20px;
-}
+/* The hit-us-up panel's corners are handled by the parent's rounded+overflow
+   wrapper, which works at every breakpoint. The old right-only radii were
+   designed for the desktop side-by-side layout and looked broken once the
+   panel stacked below the gallery on mobile. */
 .footer-border {
   border-top: 1px solid #eee;
   border-bottom: 10px solid #15803d;
@@ -145,18 +143,17 @@ header {
      the pane. Blur/saturate alone can only soften and tint it. */
   -webkit-backdrop-filter: url(#liquid-glass) blur(2px) saturate(230%)
     brightness(114%);
-  backdrop-filter: url(#liquid-glass) blur(2px) saturate(230%)
-    brightness(114%);
+  backdrop-filter: url(#liquid-glass) blur(2px) saturate(230%) brightness(114%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow:
     /* top specular highlight, the lit rim of the pane */
     inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
     inset 0 2px 6px -2px rgba(255, 255, 255, 0.5),
-    /* bottom inner glow, light pooling at the thick edge */
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.3),
+    /* bottom inner glow, light pooling at the thick edge */ inset 0 -1px 0 0
+      rgba(255, 255, 255, 0.3),
     inset 0 -8px 14px -12px rgba(255, 255, 255, 0.6),
-    /* cast shadow so the pane floats above the page */
-    0 6px 28px -10px rgba(0, 0, 0, 0.16);
+    /* cast shadow so the pane floats above the page */ 0 6px 28px -10px
+      rgba(0, 0, 0, 0.16);
 }
 
 /* Edge refraction: real glass bends light hardest at its rim, so blur and
@@ -172,8 +169,7 @@ header {
   pointer-events: none;
   -webkit-backdrop-filter: url(#liquid-glass) blur(5px) saturate(260%)
     brightness(118%);
-  backdrop-filter: url(#liquid-glass) blur(5px) saturate(260%)
-    brightness(118%);
+  backdrop-filter: url(#liquid-glass) blur(5px) saturate(260%) brightness(118%);
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 85%);
   mask-image: linear-gradient(to bottom, transparent, #000 85%);
 }
@@ -232,6 +228,49 @@ header {
 
 @media (prefers-reduced-motion: reduce) {
   .nav-glass::before {
+    animation: none;
+  }
+}
+
+/* Full-screen mobile menu overlay. Uses the same glass vocabulary as the
+   navbar so the two read as one surface when the menu is open. */
+.menu-overlay {
+  /* Opaque enough that page content never competes with the links, while
+     the blur keeps it feeling connected to the glass navbar above. */
+  background: rgba(255, 255, 255, 0.96);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  animation: menu-fade 0.28s ease-out both;
+}
+
+@keyframes menu-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Links stagger in, so the menu resolves rather than snapping into place */
+.menu-item {
+  animation: menu-rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes menu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-overlay,
+  .menu-item {
     animation: none;
   }
 }

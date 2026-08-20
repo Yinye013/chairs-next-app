@@ -26,7 +26,13 @@ function Features() {
         <div className="w-full h-[200px] overflow-hidden flex justify-center items-center">
           <Swiper
             spaceBetween={10} // Space between slides
-            slidesPerView={3} // Number of visible slides
+            // 200px-wide logos don't fit three-up on a phone; step the count
+            // with the viewport so they never crowd or clip.
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
             loop={true} // Enables infinite loop
             autoplay={{
               delay: 1,
@@ -39,7 +45,12 @@ function Features() {
             {featuresArr.map((feat) => (
               <SwiperSlide key={feat.id}>
                 <div className="h-[200px] flex justify-center items-center">
-                  <Image src={feat.imgPath} alt={'featured images'} width={200} height={200} />
+                  <Image
+                    src={feat.imgPath}
+                    alt={'featured images'}
+                    width={200}
+                    height={200}
+                  />
                 </div>
               </SwiperSlide>
             ))}

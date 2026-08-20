@@ -25,19 +25,26 @@ export default function BestSellerPage() {
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const totalPages = Math.ceil(filteredProducts?.length / productsPerPage);
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    page: number,
+  ) => {
     event.preventDefault();
     setCurrentPage(page);
   };
 
-  const currentProducts = filteredProducts?.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = filteredProducts?.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct,
+  );
   return (
     <div>
       {/* {isLoading && <p>Loading...</p>} */}
 
-      <div className="pt-6 flex justify-between items-center mb-10">
+      <div className="pt-6 flex flex-col gap-[1.6rem] md:flex-row md:justify-between md:items-center mb-10">
         <h1 className="heading-tertiary mt-[2.4rem]">
-          Here are some of our <span className="text-[#15803d]">bestsellers!</span>
+          Here are some of our{' '}
+          <span className="text-[#15803d]">bestsellers!</span>
         </h1>
 
         <TextField

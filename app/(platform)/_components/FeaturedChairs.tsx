@@ -8,10 +8,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { productsArr } from '@/app/utils/testFile';
+import { useIsMobile } from '@/app/hooks/useMediaQuery';
 
 const featured = productsArr.slice(0, 9);
 
 const FeaturedChairs = () => {
+  // Autoplay competes with touch-scrolling on phones, so let mobile users
+  // drive the carousel themselves.
+  const isMobile = useIsMobile();
+
   return (
     <div className="section-pad">
       <div className="container">
@@ -32,7 +37,9 @@ const FeaturedChairs = () => {
             1440: { slidesPerView: 4.15 },
           }}
           navigation
-          autoplay={{ delay: 3500, disableOnInteraction: false }}
+          autoplay={
+            isMobile ? false : { delay: 3500, disableOnInteraction: false }
+          }
         >
           {featured.map((product) => (
             <SwiperSlide key={product.id}>
@@ -47,7 +54,9 @@ const FeaturedChairs = () => {
                   />
                 </div>
                 <div className="pt-[1.2rem] flex justify-between items-center">
-                  <h3 className="text-[1.8rem] font-semibold">{product.title}</h3>
+                  <h3 className="text-[1.8rem] font-semibold">
+                    {product.title}
+                  </h3>
                   <span className="text-[1.6rem] font-bold text-green-700">
                     &#8358;{product.price.toLocaleString()}
                   </span>
