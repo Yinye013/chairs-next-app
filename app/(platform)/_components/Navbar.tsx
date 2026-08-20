@@ -9,6 +9,7 @@ import Logo from './Logo';
 import AccountMenu from './AccountMenu';
 import MobileMenu from './MobileMenu';
 import { useCartStore } from '@/app/store/store';
+import { useHasMounted } from '@/app/hooks/useMediaQuery';
 import GlassFilter from '@/app/components/GlassFilter';
 import { MENU_LINKS } from './navLinks';
 
@@ -20,7 +21,13 @@ const Navbar = () => {
     setShowAccountMenu((current) => !current);
   }, []);
   const { cart } = useCartStore();
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  // The cart is hydrated from localStorage, which the server cannot see, so
+  // rendering the count before mount produces a hydration mismatch (server
+  // says 0, client says N). Show 0 until mounted, then the real count.
+  const hasMounted = useHasMounted();
+  const totalItems = hasMounted
+    ? cart.reduce((acc, item) => acc + item.quantity, 0)
+    : 0;
 
   // Close account menu when pathname changes
   useEffect(() => {
