@@ -52,7 +52,7 @@ const Testimonials = () => {
                   4.9
                 </span>
               </div>
-              <p className="text-[1.3rem] text-[#777]">
+              <p className="text-[1.3rem] text-[#6b6b6b]">
                 from 10,000+ verified buyers
               </p>
             </div>
@@ -89,6 +89,7 @@ const Testimonials = () => {
                 <div>
                   <div
                     className="flex items-center gap-1 mb-[1.6rem]"
+                    role="img"
                     aria-label={`${test.rating} out of 5 stars`}
                   >
                     {Array.from({ length: test.rating }).map((_, s) => (
@@ -125,7 +126,7 @@ const Testimonials = () => {
                       <p className="text-[1.6rem] font-bold text-[#222] leading-tight">
                         {test.clientName}
                       </p>
-                      <p className="text-[1.3rem] text-[#777]">
+                      <p className="text-[1.3rem] text-[#6b6b6b]">
                         {test.role} &middot; {test.location}
                       </p>
                     </div>

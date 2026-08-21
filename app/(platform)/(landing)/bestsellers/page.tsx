@@ -26,7 +26,7 @@ export default async function BestSellerPage({ searchParams }: PageProps) {
       </div>
 
       {items.length === 0 ? (
-        <p className="text-[1.6rem] text-[#777] py-[4.8rem] text-center">
+        <p className="text-[1.6rem] text-[#6b6b6b] py-[4.8rem] text-center">
           {query
             ? `No products match “${query}”.`
             : 'No products yet. Add some in the studio.'}
