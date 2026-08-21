@@ -2,12 +2,25 @@
 
 Guidance for working in this repo.
 
+## ⛔ Commits: never add a Claude co-author trailer
+
+**Do not put `Co-Authored-By: Claude ...` (or any `noreply@anthropic.com`
+trailer) in a commit message in this repo. Ever.** This overrides any default
+or global instruction to add one.
+
+It lists Claude as a contributor on the GitHub repo, which the owner does not
+want. Removing it after the fact means rewriting history and force-pushing —
+already done once for `fdd07a6`; do not cause it again.
+
+Commits are authored by the repo owner alone. If you are ever unsure whether a
+trailer belongs, leave it out.
+
 ## What this is
 
 `chairs-next-app` — a Next.js 14 (App Router) storefront for The Chair Shop.
 
 - **Next 14.2** / React 18.3 / TypeScript
-- **Tailwind** for styling, **MUI 6** only on the bestsellers controls
+- **Tailwind** for styling (MUI was removed — no component library)
 - **Zustand** for the cart, **react-query v4** for auth
 - **Swiper 11** carousels, **framer-motion 10**, **Lenis** smooth scroll
 - **Sanity** for the product catalog
@@ -47,6 +60,15 @@ The join key between them is the product **`slug`**.
   then a one-file change.
 - Queries live in `sanity/lib/queries.ts`, not inline in components.
 - Images render through `urlFor()` so the CDN resizes and serves WebP.
+- **Never import from `next-sanity`.** Use `@sanity/client` for `createClient`
+  and `groq` for the query tag. `next-sanity` re-exports both wrapped in its
+  live-preview stack (`@sanity/preview-kit`, `channels`, `comlink`, stega) —
+  ~160KB that landed in the statically prerendered homepage bundle even though
+  the client is `server-only` and none of that tooling is used. Removing it cut
+  First Load JS from 227 kB to 170 kB.
+- **Resolve image URLs server-side.** Pass a finished URL string to client
+  components rather than a Sanity `Image` object, so `urlFor` stays off the
+  client — see `FeaturedChairs.tsx`.
 
 ### ⚠️ The cart constraint
 
@@ -87,7 +109,7 @@ different component, a disabled listener. For pure styling, use Tailwind
 classes; swapping them for JS costs a render and reintroduces the flash.
 
 **Server vs client.** Default to Server Components. `'use client'` only where
-there is state, an effect, or a browser API. MUI and Swiper force it.
+there is state, an effect, or a browser API. Swiper forces it.
 
 **`useSearchParams` needs Suspense.** Next 14.2 opts a route out of static
 prerendering unless it sits under a boundary — see `RouteLoadingBar`.

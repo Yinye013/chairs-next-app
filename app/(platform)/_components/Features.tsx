@@ -3,26 +3,15 @@
 import React from 'react';
 import { featuresArr } from '../../utils/featuresFiles';
 import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import useMultipleAnimations from '../../hooks/useMultipleAnimations';
+import FadeInSection from '../../components/FadeInSection';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 
 function Features() {
-  // triggerOnce — see the note in FadeInSection: without it the section resets
-  // to opacity 0 every time it leaves the viewport.
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: '0px 0px -10% 0px',
-  });
-  const animation = useAnimation();
-  useMultipleAnimations(inView, animation);
-
   return (
-    <motion.div ref={ref} animate={animation} className="">
+    <FadeInSection>
       <p className="subheading">As featured in</p>
       <h2 className="heading-secondary">Where Our Chairs Have Been</h2>
       <>
@@ -60,7 +49,7 @@ function Features() {
           </Swiper>
         </div>
       </>
-    </motion.div>
+    </FadeInSection>
   );
 }
 
