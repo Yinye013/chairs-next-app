@@ -110,14 +110,11 @@ header {
 }
 
 /* Swiper theme: swiper's own CSS re-declares --swiper-theme-color on :root
-   after globals.css loads, so scope the override to .swiper to win. */
-.swiper,
-.swiper-button-next,
-.swiper-button-prev,
-.swiper-pagination {
+   after globals.css loads, so scope the override to .swiper to win.
+   The carousels are drag/autoplay only — no navigation arrows or pagination
+   bullets — so the selectors for those elements are gone. */
+.swiper {
   --swiper-theme-color: #15803d;
-  --swiper-navigation-color: #15803d;
-  --swiper-pagination-color: #15803d;
 }
 
 /* Testimonial carousel: stretch slides so cards share a row height

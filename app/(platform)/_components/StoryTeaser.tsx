@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import ChairAnimation from '@/animations/animation.json';
 import ClientLottie from '@/app/components/ClientLottie';
 import FadeInSection from '../../components/FadeInSection';
 
@@ -8,7 +7,7 @@ const StoryTeaser = () => {
     <FadeInSection className="section-pad">
       <div className="container grid grid-cols-1 items-center gap-[3rem] lg:grid-cols-2">
         <div>
-          <ClientLottie animationData={ChairAnimation} width={20} />
+          <ClientLottie src="/animations/animation.json" width={20} />
         </div>
         <div>
           <p className="subheading">our story</p>

@@ -1,5 +1,3 @@
-import ChairAnimation from '@/animations/animation.json';
-import StoryAnimation from '@/animations/story.json';
 import FadeInSection from '@/app/components/FadeInSection';
 import ClientLottie from '@/app/components/ClientLottie';
 
@@ -27,7 +25,7 @@ export default function AboutPage() {
           </p>
         </div>
         <div>
-          <ClientLottie animationData={ChairAnimation} width={20} />
+          <ClientLottie src="/animations/animation.json" width={20} />
         </div>
       </div>
       <div>
@@ -39,7 +37,7 @@ export default function AboutPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
-            <ClientLottie animationData={StoryAnimation} />
+            <ClientLottie src="/animations/story.json" />
           </div>
           <div>
             <p className="text-[1.6rem] tracking-wide mt-[3rem] pb-[2rem] ">

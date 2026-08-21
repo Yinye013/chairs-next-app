@@ -14,9 +14,6 @@
     "migrate:products": "tsx scripts/migrate-products.ts"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.5",
-    "@emotion/styled": "^11.13.5",
-    "@mui/material": "^6.1.8",
     "@sanity/client": "^6.29.1",
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^3.99.0",

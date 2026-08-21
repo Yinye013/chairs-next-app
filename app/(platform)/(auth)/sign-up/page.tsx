@@ -1,5 +1,4 @@
 import ClientLottie from '@/app/components/ClientLottie';
-import HelloAnimation from '@/animations/hello.json';
 import Logo from '../../_components/Logo';
 import Signup from './_components/Signup';
 
@@ -8,7 +7,7 @@ export default function SignUpPage() {
     <div className="h-screen flex mt-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex items-center">
-          <ClientLottie animationData={HelloAnimation} />
+          <ClientLottie src="/animations/hello.json" />
         </div>
         <div className="p-5">
           <div className="mt-[6rem]">

@@ -1,19 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
 import { Quote, Star } from 'lucide-react';
 import { testArr } from '@/app/utils/testFile';
-import { useIsMobile } from '@/app/hooks/useMediaQuery';
 
 const Testimonials = () => {
-  // Autoplay competes with touch-scrolling on phones, so let mobile users
-  // drive the carousel themselves.
-  const isMobile = useIsMobile();
-
   return (
     <div className="section-pad">
       <div className="container">
@@ -63,20 +57,22 @@ const Testimonials = () => {
       {/* Full-bleed: breaks out of the ancestor .container's max-width/padding to span the viewport */}
       <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
         <Swiper
-          modules={[Autoplay, Navigation]}
           spaceBetween={24}
-          slidesPerView={1.15}
-          slidesOffsetBefore={32}
-          slidesOffsetAfter={32}
+          slidesPerView={1}
           breakpoints={{
-            640: { slidesPerView: 2.15 },
-            1024: { slidesPerView: 3.15 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
-          navigation
-          autoplay={
-            isMobile ? false : { delay: 4500, disableOnInteraction: false }
-          }
-          className="testimonial-swiper !pb-[1rem]"
+          loop={true}
+          autoplay={{
+            delay: 4500,
+            disableOnInteraction: false,
+          }}
+          speed={2000}
+          modules={[Autoplay]}
+          // !px matches .container's gutter — see the note in
+          // FeaturedChairsCarousel.
+          className="testimonial-swiper !pb-[1rem] !px-[3.2rem]"
         >
           {testArr.map((test) => (
             <SwiperSlide key={test.clientName} className="!h-auto">

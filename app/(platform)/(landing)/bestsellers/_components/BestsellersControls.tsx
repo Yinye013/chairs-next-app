@@ -2,8 +2,6 @@
 
 import { useEffect, useState, useTransition } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import TextField from '@mui/material/TextField';
-import Pagination from '@mui/material/Pagination';
 
 type Props = {
   totalPages: number;
@@ -12,11 +10,30 @@ type Props = {
 };
 
 /**
+ * Builds the page list with ellipses: always the first and last page, plus a
+ * window around the current one. Returns numbers and 'gap' markers, e.g.
+ * [1, 'gap', 4, 5, 6, 'gap', 12].
+ */
+function pageItems(total: number, current: number): (number | 'gap')[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const items: (number | 'gap')[] = [1];
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+
+  if (start > 2) items.push('gap');
+  for (let p = start; p <= end; p++) items.push(p);
+  if (end < total - 1) items.push('gap');
+
+  items.push(total);
+  return items;
+}
+
+/**
  * Search box and pagination for the bestsellers page.
  *
  * Both write to the URL rather than to local state — the Server Component
- * re-queries Sanity from the params. MUI forces a client component here
- * regardless, so this stays as thin as possible.
+ * re-queries Sanity from the params.
  */
 export default function BestsellersControls({
   totalPages,
@@ -57,43 +74,51 @@ export default function BestsellersControls({
 
   return (
     <div className="flex flex-col gap-[1.6rem] w-full md:w-auto md:items-end">
-      <TextField
+      <input
+        type="search"
         placeholder="Search for products..."
-        className="w-full max-w-md px-4 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-green-500 focus:outline-none transition duration-150 ease-in-out text-gray-700 placeholder-gray-400"
+        aria-label="Search for products"
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': { borderColor: 'gray' },
-            '&:hover fieldset': { borderColor: 'green' },
-            '&.Mui-focused fieldset': { borderColor: 'green' },
-            fontSize: '1.4rem',
-          },
-        }}
+        className="w-full max-w-md px-[1.4rem] py-[1.4rem] text-[1.4rem] rounded-lg border border-gray-500 shadow-sm text-gray-700 placeholder-gray-400 transition duration-150 ease-in-out hover:border-green-700 focus:border-green-700 focus:ring-1 focus:ring-green-700 focus:outline-none"
       />
 
       {totalPages > 1 && (
-        <div
-          className="flex justify-center text-[1.2rem]"
+        <nav
+          aria-label="Pagination"
+          className="flex justify-center transition-opacity"
           style={{ opacity: isPending ? 0.6 : 1 }}
         >
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={(_, page) => push(term, page)}
-            shape="rounded"
-            sx={{
-              '& .MuiPaginationItem-root': {
-                color: 'gray',
-                fontSize: '1.5rem',
-                '&.Mui-selected': {
-                  backgroundColor: '#15803d',
-                  color: 'white',
-                },
-              },
-            }}
-          />
-        </div>
+          <ul className="flex items-center gap-[0.4rem]">
+            {pageItems(totalPages, currentPage).map((item, i) =>
+              item === 'gap' ? (
+                <li
+                  key={`gap-${i}`}
+                  aria-hidden
+                  className="px-[0.8rem] text-[1.5rem] text-gray-500 select-none"
+                >
+                  &hellip;
+                </li>
+              ) : (
+                <li key={item}>
+                  <button
+                    type="button"
+                    onClick={() => push(term, item)}
+                    aria-label={`Go to page ${item}`}
+                    aria-current={item === currentPage ? 'page' : undefined}
+                    className={`min-w-[3.2rem] h-[3.2rem] px-[0.8rem] rounded text-[1.5rem] transition-colors ${
+                      item === currentPage
+                        ? 'bg-green-700 text-white'
+                        : 'text-gray-500 hover:bg-gray-100'
+                    }`}
+                  >
+                    {item}
+                  </button>
+                </li>
+              )
+            )}
+          </ul>
+        </nav>
       )}
     </div>
   );

@@ -1,6 +1,5 @@
 import Logo from '../../_components/Logo';
 import ClientLottie from '@/app/components/ClientLottie';
-import WaveAnimation from '@/animations/wave.json';
 import Login from './_components/Login';
 
 export default function LoginPage() {
@@ -8,7 +7,7 @@ export default function LoginPage() {
     <div className="h-screen flex items-center">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="flex items-center justify-center">
-          <ClientLottie animationData={WaveAnimation} />
+          <ClientLottie src="/animations/wave.json" />
         </div>
         <div className="p-5">
           <div className="">

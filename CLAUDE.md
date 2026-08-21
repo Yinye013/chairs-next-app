@@ -31,17 +31,17 @@ is the full safety net, so run both before claiming something works.
 
 Two backends, deliberately separate. Do not merge their clients.
 
-| | Owns | Client |
-|---|---|---|
-| **Sanity** | Product catalog, images, marketing copy | `sanity/lib/client.ts` |
+|                | Owns                                      | Client                   |
+| -------------- | ----------------------------------------- | ------------------------ |
+| **Sanity**     | Product catalog, images, marketing copy   | `sanity/lib/client.ts`   |
 | **NestJS API** | Auth today; orders, payments, stock later | `app/utils/apiClient.ts` |
 
 The join key between them is the product **`slug`**.
 
 ### Rules for Sanity reads
 
-- **Every GROQ projection must alias `"id": slug.current`.** Sanity's `_id` is
-  a UUID and must never reach a component — see the cart constraint below.
+- **Every GROQ projection must alias `"id": slug.current`.** Sanity's `_id` is a
+  UUID and must never reach a component — see the cart constraint below.
 - All reads go through `sanityFetch()` in `sanity/lib/fetch.ts`, never
   `client.fetch` directly. Adding draft mode or webhook revalidation later is
   then a one-file change.
@@ -50,9 +50,9 @@ The join key between them is the product **`slug`**.
 
 ### ⚠️ The cart constraint
 
-`useCartStore` (`app/store/store.ts`) hand-rolls `localStorage` persistence,
-and a cart line's `id` is the **product slug** (`'classic-comfort'`), with
-`imgPath` a resolved URL snapshot.
+`useCartStore` (`app/store/store.ts`) hand-rolls `localStorage` persistence, and
+a cart line's `id` is the **product slug** (`'classic-comfort'`), with `imgPath`
+a resolved URL snapshot.
 
 Changing either format orphans every existing visitor's cart — old rows keep
 rendering but no longer match a product, so increment/remove silently break.
@@ -77,7 +77,7 @@ prefixes only add columns going up. Only `sm` / `md` / `lg` are used — no `xl`
 Every section is wrapped in `.container`.
 
 **⚠️ `1rem` = 10px.** `html` is `font-size: 62.5%`, so `text-[1.6rem]` is 16px
-*and Tailwind's own scale is affected too* — `w-4` is 10px, not 16px. Easy to
+_and Tailwind's own scale is affected too_ — `w-4` is 10px, not 16px. Easy to
 misjudge when eyeballing sizes.
 
 **Media query hooks.** `app/hooks/useMediaQuery.ts` exports `useIsMobile` /
@@ -108,5 +108,5 @@ has no transactions and cannot hold secrets):
    display-only.
 5. **Reviews** gated on a delivered order (testimonials are hardcoded today).
 
-Also outstanding on the frontend: `apiClient.ts` stores an auth token but
-never attaches it to requests — there is no interceptor.
+Also outstanding on the frontend: `apiClient.ts` stores an auth token but never
+attaches it to requests — there is no interceptor.
