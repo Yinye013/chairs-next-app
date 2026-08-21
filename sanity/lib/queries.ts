@@ -1,4 +1,6 @@
-import { groq } from 'next-sanity';
+// From `groq` directly — next-sanity only re-exports this same tag, and
+// importing it from there pulls the whole live-preview stack in with it.
+import groq from 'groq';
 
 /**
  * All GROQ lives here.

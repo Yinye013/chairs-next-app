@@ -13,6 +13,12 @@
     "studio:deploy": "sanity deploy",
     "migrate:products": "tsx scripts/migrate-products.ts"
   },
+  "browserslist": [
+    ">0.3%",
+    "last 2 versions",
+    "not dead",
+    "not op_mini all"
+  ],
   "dependencies": {
     "@sanity/client": "^6.29.1",
     "@sanity/image-url": "^1.2.0",

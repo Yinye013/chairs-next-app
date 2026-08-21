@@ -36,27 +36,76 @@ Both Lighthouse failures are fixed and pushed in `8790abc`. Both came from the t
 
 Verified in built HTML: 6 star rows carry `role="img"` with their label; zero `#777` remain.
 
-## 2. Performance — 66, NOT yet addressed
+## 2. Performance — 66 → 80
 
-Baseline from an incognito run. **Trust incognito numbers only** — headless/background-loaded runs scored 26 on the same build.
+Measured on an incognito production run. **Trust incognito numbers only** —
+headless/background-loaded runs scored 26 on the same build.
 
-**Diagnosis (from a real Lighthouse JSON run):**
+| Metric | Before | Now | Subscore |
+|---|---|---|---|
+| FCP | — | **0.4 s** | +10 |
+| **LCP** | typewriter `<h1>`, unresolved until typed | **0.7 s** | +25 |
+| **CLS** | **0.193** | **0.005** | +25 |
+| Speed Index | — | 1.5 s | +8 |
+| **TBT** | — | **410 ms** | **+12 only** |
 
-- **Script evaluation: 16.2s** — dominates everything. This is a JS problem, not an image problem.
-- **LCP element is the hero `<h1>`** containing `<Typewriter>` (`react-simple-typewriter`). LCP cannot settle until enough text is typed out.
-- **CLS 0.193**, mostly `<main class="container">` shifting (0.134 + 0.077 + 0.052) — the typewriter changing text width.
-- **373KB JS across 24 requests.** Largest chunks: lottie-react 78KB (50KB unused), 54KB, 54KB.
-- 11KB of legacy polyfills.
+Accessibility 100 · Best Practices 100 · SEO 100.
 
-**Ranked opportunities:**
+The LCP and CLS wins came from the hero fix (#1) and the bundle work (#2, #3)
+below. **TBT is now the only weak subscore** and effectively all of the
+remaining 20 points.
 
-1. ~~**Hero LCP/CLS**~~ — **DONE.** First phrase renders server-side (full heading is in `.next/server/app/index.html`, so LCP no longer waits on hydration or typing); an invisible copy of the longest phrase reserves the inline box. Measured: the `<h1>` holds a single box size across many type/delete cycles, desktop and mobile.
+### Ranked opportunities
 
-   The first attempt (`fdd07a6`) was reverted because the spacer carried `aria-hidden` but no `invisible` — `aria-hidden` only hides from screen readers, so it painted the phrase in the heading's default grey underneath the green typewriter. Adding Tailwind's `invisible` (`visibility: hidden`, which still reserves width) was the whole fix.
-2. **Lottie off the critical path** — see the blocker below.
-3. ~~**MUI**~~ — **DONE.** `@mui/material` and both `@emotion` packages are out of `package.json`; `BestsellersControls.tsx` uses plain inputs + Tailwind. Verified: no MUI in any built page.
-4. Add `browserslist` targeting modern browsers to drop the 11KB of polyfills.
-5. Add `priority` to any above-the-fold image (currently none are marked); consider `preload: true` on the Satoshi font.
+1. ~~**Hero LCP/CLS**~~ — **DONE.** First phrase renders server-side (full
+   heading is in `.next/server/app/index.html`, so LCP no longer waits on
+   hydration or typing); an invisible copy of the longest phrase reserves the
+   inline box. Measured: the `<h1>` holds a single box size across many
+   type/delete cycles, desktop and mobile. CLS 0.193 → 0.005.
+
+   The first attempt (`fdd07a6`) was reverted because the spacer carried
+   `aria-hidden` but no `invisible` — `aria-hidden` only hides from screen
+   readers, so it painted the phrase in the heading's default grey underneath
+   the green typewriter. Adding Tailwind's `invisible` (`visibility: hidden`,
+   which still reserves width) was the whole fix.
+
+2. ~~**Lottie off the critical path**~~ — **DONE.** See the section below.
+
+3. ~~**MUI**~~ — **DONE.** `@mui/material` and both `@emotion` packages are out
+   of `package.json`; `BestsellersControls.tsx` uses plain inputs + Tailwind.
+   Verified: no MUI in any built page.
+
+4. ~~**`browserslist`**~~ — **ADDED, but it does not fix the 11 KiB item.**
+   `package.json` now pins `>0.3%, last 2 versions, not dead, not op_mini all`
+   (resolves to Chrome 109+, Firefox 121+, iOS Safari 16.6+, Edge 149+).
+
+   ⚠️ **Measured effect: ~1.5 KB across the whole build** (2,225,120 →
+   2,223,655 bytes), and the polyfill chunk is byte-identical either way.
+   Lighthouse's "Legacy JavaScript — 11 KiB" refers to
+   `polyfills-*.js`, which Next emits with a **`noModule`** attribute — it runs
+   only in browsers without ES-module support (pre-2018) and is never
+   downloaded or executed by a modern browser. It is a fixed Next.js bundle and
+   `browserslist` does not control it. **This audit cannot be cleared from
+   userland; do not spend more time on it.** The config is kept as a small real
+   saving and as documentation of the support floor.
+
+5. **`priority` on the above-fold image / font `preload`** — now **low value**.
+   FCP 0.4 s and LCP 0.7 s are already strong; there is little left to win here.
+
+### What is actually left: TBT (410 ms)
+
+All four diagnostics point at the same main-thread problem, and it is the same
+root cause as the desktop scroll lag below — Lenis needs a free main thread
+60×/s, and long tasks starve it. **Fixing TBT fixes both.**
+
+- Minimize main-thread work — 3.0 s
+- Avoid long main-thread tasks — 10 found
+- Reduce unused JavaScript — ~50 KiB (check the Lighthouse treemap before
+  guessing; likely Swiper / framer-motion surface area)
+- Avoid non-composited animations — 2 elements animating properties that force
+  layout instead of running on the compositor
+- Forced reflow — likely `useMultipleAnimations` reading `getBoundingClientRect`
+  during scroll (the same hook flagged in §6 for blanking sections)
 
 ### Mobile scrolls fine, desktop feels laggy — why
 
@@ -82,6 +131,38 @@ alongside Lenis; `useMultipleAnimations` scroll/IO handlers across `About`,
 the dropped frames remain. The fix is the ranked work above.
 
 Realistic target is **~90**, not 100 — Swiper, framer-motion, Lenis and react-query all ship to the client by design.
+
+### Carousels — arrows removed, configs unified
+
+All three carousels (`Features` "As Featured In", `FeaturedChairsCarousel`,
+`Testimonials`) now share the same behavioural config: `loop`, always-on
+autoplay, `speed: 2000`, whole-number `slidesPerView`, and no touch overrides.
+
+**Why this matters, not just cosmetics.** Removing the nav arrows initially
+broke touch on mobile. The two product carousels had
+`autoplay={isMobile ? false : ...}`, so on a phone they were left with *no*
+autoplay and *no* arrows — only free dragging, with fractional
+`slidesPerView: 1.15` plus `slidesOffsetBefore/After`, which produce **no
+uniform snap grid**. A swipe coasted on momentum and settled mid-slide.
+"As Featured In" was never affected because it has `loop: true` and autoplay
+always on.
+
+Matching its config gives all three a uniform snap grid — verified in a
+production build: featured-chairs and testimonials both `0, 420, 839, 1259`,
+as-featured-in `0, 287, 573, 860`, all resting on a snap point.
+
+Both product carousels also dropped `useIsMobile` entirely (it became unused).
+
+⚠️ **Gutter.** Both sit in a full-bleed `-ml-[50vw] w-screen` wrapper that
+escapes `.container`'s 3.2rem padding; `slidesOffsetBefore/After={32}` used to
+put it back. They now carry `!px-[3.2rem]` on the Swiper instead — padding, not
+margin, since margin would narrow the track and clip slides mid-transition.
+
+Two known, **pre-existing** desktop quirks, unchanged by this work: above
+1200px the heading is inset further than the slides (`.container` is
+`max-w-[120rem]` and centred, the full-bleed track is not), and the track starts
+~6px left of the viewport because `100vw` includes the scrollbar — the same
+cause as the 6px horizontal overflow on mobile.
 
 ### Lottie deferral — DONE (was wrongly recorded as reverted)
 

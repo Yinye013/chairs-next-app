@@ -6,10 +6,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
-import { urlFor } from '@/sanity/lib/image';
 import type { Product } from '@/app/utils/types';
 
-const FeaturedChairsCarousel = ({ featured }: { featured: Product[] }) => {
+/** `imageUrl` is resolved server-side in FeaturedChairs — see the note there. */
+type FeaturedSlide = Product & { imageUrl: string };
+
+const FeaturedChairsCarousel = ({ featured }: { featured: FeaturedSlide[] }) => {
   return (
     <Swiper
       spaceBetween={24}
@@ -38,7 +40,7 @@ const FeaturedChairsCarousel = ({ featured }: { featured: Product[] }) => {
           <Link href="/bestsellers" className="block group">
             <div className="overflow-hidden rounded-lg">
               <Image
-                src={urlFor(product.imageRef).width(400).height(320).url()}
+                src={product.imageUrl}
                 alt={product.alt || product.title}
                 width={400}
                 height={320}

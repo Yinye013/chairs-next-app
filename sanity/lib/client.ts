@@ -1,4 +1,9 @@
-import { createClient } from 'next-sanity';
+// `@sanity/client` directly, not `next-sanity`. next-sanity re-exports
+// createClient wrapped in its live-preview stack (@sanity/preview-kit,
+// channels, comlink, stega) — ~160KB that landed in the statically prerendered
+// homepage chunk even though this module is server-only and none of that
+// tooling is used here. Same client, same options, none of the payload.
+import { createClient } from '@sanity/client';
 import { apiVersion, dataset, projectId } from '../env';
 
 /**
