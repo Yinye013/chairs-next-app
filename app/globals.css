@@ -172,11 +172,29 @@ header {
 }
 
 /* A slow travelling sheen, so the surface reads as liquid rather than a
-   static frosted panel. */
+   static frosted panel.
+
+   Animates `transform`, not `background-position`. The latter cannot be
+   composited, so an infinite loop of it repaints the fixed navbar on every
+   frame for as long as the page is open — Lighthouse flagged it under
+   "non-composited animations", and it competes with Lenis for the main
+   thread. A wider element slid on the GPU looks identical.
+
+   `will-change` is deliberately omitted: the element is promoted by the
+   transform animation itself, and a permanent hint costs memory for a
+   decorative layer. */
+.nav-glass {
+  overflow: hidden;
+}
+
 .nav-glass::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  /* 250% wide so the gradient can travel without exposing an edge */
+  width: 250%;
   pointer-events: none;
   background: linear-gradient(
     105deg,
@@ -185,17 +203,23 @@ header {
     rgba(255, 255, 255, 0.12) 56%,
     transparent 70%
   );
-  background-size: 250% 100%;
   animation: nav-sheen 9s ease-in-out infinite;
 }
 
 @keyframes nav-sheen {
   0%,
   100% {
-    background-position: 130% 0;
+    transform: translate3d(-52%, 0, 0);
   }
   50% {
-    background-position: -30% 0;
+    transform: translate3d(12%, 0, 0);
+  }
+}
+
+/* Decorative only — honour a reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  .nav-glass::before {
+    animation: none;
   }
 }
 

@@ -12,7 +12,12 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 
 function Features() {
-  let { ref, inView } = useInView();
+  // triggerOnce — see the note in FadeInSection: without it the section resets
+  // to opacity 0 every time it leaves the viewport.
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: '0px 0px -10% 0px',
+  });
   const animation = useAnimation();
   useMultipleAnimations(inView, animation);
 
