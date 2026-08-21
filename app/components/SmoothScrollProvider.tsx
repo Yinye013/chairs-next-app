@@ -15,6 +15,11 @@ import 'lenis/dist/lenis.css';
  *
  * `autoRaf` is left off so the loop is owned here and cancelled cleanly on
  * unmount; otherwise a stale loop survives fast-refresh and route changes.
+ *
+ * Note this can look inert in `next dev`: Strict Mode double-invokes effects,
+ * and the immediate mount/unmount/remount can leave the instance torn down.
+ * Verify smooth scrolling against `npm run build && npm run start`, where it
+ * behaves correctly.
  */
 export default function SmoothScrollProvider({
   children,
@@ -28,9 +33,14 @@ export default function SmoothScrollProvider({
     ).matches;
     if (prefersReducedMotion) return;
 
+    // Lenis defaults (lerp: 0.1) — the same feel the original
+    // `<ReactLenis root>` had, since it passed no options.
+    //
+    // Note `duration` and `lerp` are mutually exclusive: setting `duration`
+    // switches Lenis to fixed-time easing, which reads as more mechanical than
+    // the frame-rate-independent inertia `lerp` gives. Leave `duration` unset.
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
       smoothWheel: true,
     });
 
