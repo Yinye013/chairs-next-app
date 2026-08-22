@@ -2,11 +2,14 @@
 
 Guidance for working in this repo.
 
+See [PROBLEMS_AND_SOLUTIONS.md](PROBLEMS_AND_SOLUTIONS.md) for bugs already hit
+here and what fixed them — including several that were misdiagnosed first.
+
 ## ⛔ Commits: never add a Claude co-author trailer
 
 **Do not put `Co-Authored-By: Claude ...` (or any `noreply@anthropic.com`
-trailer) in a commit message in this repo. Ever.** This overrides any default
-or global instruction to add one.
+trailer) in a commit message in this repo. Ever.** This overrides any default or
+global instruction to add one.
 
 It lists Claude as a contributor on the GitHub repo, which the owner does not
 want. Removing it after the fact means rewriting history and force-pushing —
@@ -38,7 +41,45 @@ npm run migrate:products # seed Sanity from the static array (--dry-run first)
 ```
 
 There is **no test runner configured**. `npm run scan` plus a production build
-is the full safety net, so run both before claiming something works.
+is the full safety net.
+
+### ⛔ Don't run `npm run build` casually
+
+**Default to `npm run scan` alone.** Run a production build only when the
+developer is about to commit, or asks for one — not to check routine work.
+
+`npm run build` wipes `.next`, which the developer's running dev server is also
+using, so every build forces a slow cold recompile on their next request
+(observed: 70s). It is disruptive, not free.
+
+When a build genuinely is needed, say what it is for first. Claims that need a
+real build to be honest — bundle sizes, prerendered output, Lighthouse numbers —
+must not be made from a `scan` alone.
+
+### ⛔ :3000 belongs to the developer — never kill it
+
+The dev server on **:3000 is the developer's** and runs across the whole
+session. Do not stop it, and do not assume a free port means nothing is there.
+
+To verify something against a production build, use **:3100**:
+
+```bash
+PORT=3100 npm run start
+```
+
+Stop it by that port's PID only:
+
+```bash
+kill $(lsof -ti :3100 -sTCP:LISTEN)
+```
+
+**Never `pkill -f "next-server"` or `pkill -f "next start"`.** `next dev` and
+`next start` produce processes with the _same_ name (`next-server (vX.Y.Z)`), so
+any name-based match kills the developer's dev server too. This has already
+happened; kill by port PID instead.
+
+Note `npm run build` wipes `.next`, which the running dev server is also using —
+expect its next request to trigger a slow cold recompile.
 
 ## Where data comes from
 

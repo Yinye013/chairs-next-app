@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FaRegStar, FaShoppingCart } from 'react-icons/fa';
 import { CiClock2 } from 'react-icons/ci';
 import { IoEarthSharp } from 'react-icons/io5';
@@ -38,19 +39,32 @@ const ProductCard: React.FC<Product> = ({
   ].filter((s) => s.value);
 
   return (
-    <div className="max-w-xl rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
-      <div className="relative w-full h-[25rem]">
+    <div className="group max-w-xl rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+      {/* Only the image and title link out. The card is not wrapped as a whole
+          because it contains an "Add to cart" button — a button nested inside
+          an anchor is invalid HTML and breaks keyboard activation. */}
+      <Link
+        href={`/bestsellers/${id}`}
+        className="block relative w-full h-[25rem] overflow-hidden"
+      >
         <Image
           src={imgPath}
           alt={alt || title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           {...(blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {})}
         />
-      </div>
+      </Link>
       <div className="p-4">
-        <h1 className="text-[2.4rem] font-bold mb-2">{title}</h1>
+        <h2 className="text-[2.4rem] font-bold mb-2">
+          <Link
+            href={`/bestsellers/${id}`}
+            className="hover:text-[#15803d] transition-colors"
+          >
+            {title}
+          </Link>
+        </h2>
         <div>
           <ul className="grid grid-cols-2 text-[1.2rem] font-semibold gap-4 list-none p-0 tracking-wide">
             {specs.map(({ icon: Icon, value }) => (
@@ -67,7 +81,7 @@ const ProductCard: React.FC<Product> = ({
           &#8358;{price.toLocaleString()}
         </p>
         <button
-          className="flex items-center gap-[1.2rem] uppercase text-[1.4rem] px-[1.6rem] py-[0.8rem] bg-[#15803d] text-white font-bold rounded-md"
+          className="flex items-center gap-[1.2rem] uppercase text-[1.4rem] px-[1.6rem] py-[0.8rem] bg-[#15803d] text-white font-bold rounded-md hover:bg-[#166534] transition-colors"
           // Cart contract: the shape and the slug-based `id` must not change,
           // or previously persisted localStorage carts orphan.
           onClick={() => addtoCart({ title, id, price, imgPath })}

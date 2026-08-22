@@ -28,8 +28,12 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   );
 
   const pathname = usePathname();
+  // `trailingSlash: true` in next.config.js means usePathname() returns
+  // '/login/', not '/login' — a plain includes() against the bare paths never
+  // matched, so the navbar rendered on the auth pages it was meant to hide on.
   const noNavbarFooterRoutes = ['/login', '/sign-up'];
-  const showNavbarFooter = !noNavbarFooterRoutes.includes(pathname);
+  const normalisedPath = pathname.replace(/\/+$/, '') || '/';
+  const showNavbarFooter = !noNavbarFooterRoutes.includes(normalisedPath);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -43,7 +47,14 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
           {showNavbarFooter && <Navbar />}
           {/* Navbar is fixed, so reserve its height in the flow */}
           {showNavbarFooter && <div className="h-[9.6rem]" aria-hidden />}
-          <main className="container min-h-screen">{children}</main>
+          {/* min-h-screen keeps the footer down the page on short routes. The
+              auth pages have no navbar or footer and centre themselves, so
+              forcing a full viewport there only adds dead space. */}
+          <main
+            className={`container ${showNavbarFooter ? 'min-h-screen' : ''}`}
+          >
+            {children}
+          </main>
           {showNavbarFooter && <Footer />}
         </div>
       </SmoothScrollProvider>
