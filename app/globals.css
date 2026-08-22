@@ -254,7 +254,12 @@ header {
 }
 
 /* Full-screen mobile menu overlay. Uses the same glass vocabulary as the
-   navbar so the two read as one surface when the menu is open. */
+   navbar so the two read as one surface when the menu is open.
+
+   Entry and exit are separate animations rather than one transition: the
+   overlay is portalled and conditionally rendered, so it must stay mounted for
+   the length of the exit before React removes it. MobileMenu handles that
+   timing — see MENU_EXIT_MS there, which must match the durations below. */
 .menu-overlay {
   /* Opaque enough that page content never competes with the links, while
      the blur keeps it feeling connected to the glass navbar above. */
@@ -262,6 +267,12 @@ header {
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
   animation: menu-fade 0.28s ease-out both;
+}
+
+/* Closing: the whole surface fades, slightly quicker than it arrived —
+   dismissal should feel immediate where arrival can afford to settle. */
+.menu-overlay--closing {
+  animation: menu-fade-out 0.22s ease-in both;
 }
 
 @keyframes menu-fade {
@@ -273,9 +284,25 @@ header {
   }
 }
 
+@keyframes menu-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 /* Links stagger in, so the menu resolves rather than snapping into place */
 .menu-item {
   animation: menu-rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* On exit the items drop their stagger and leave together: a reverse stagger
+   makes dismissal feel slow, and the overlay is fading over them anyway. */
+.menu-overlay--closing .menu-item {
+  animation: menu-sink 0.22s ease-in both;
+  animation-delay: 0ms !important;
 }
 
 @keyframes menu-rise {
@@ -289,9 +316,22 @@ header {
   }
 }
 
+@keyframes menu-sink {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .menu-overlay,
-  .menu-item {
+  .menu-overlay--closing,
+  .menu-item,
+  .menu-overlay--closing .menu-item {
     animation: none;
   }
 }

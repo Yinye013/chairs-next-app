@@ -5,6 +5,7 @@ import {
   PRODUCTS_COUNT_QUERY,
   FEATURED_PRODUCTS_QUERY,
   PRODUCT_BY_SLUG_QUERY,
+  PRODUCT_SLUGS_QUERY,
 } from '@/sanity/lib/queries';
 import type { Product, ProductDetail } from '@/app/utils/types';
 
@@ -77,5 +78,19 @@ export async function getProductBySlug(
   return sanityFetch<ProductDetail | null>({
     query: PRODUCT_BY_SLUG_QUERY,
     params: { slug },
+  });
+}
+
+/**
+ * Every product slug, for `generateStaticParams` on `/bestsellers/[slug]`.
+ *
+ * A longer revalidate than the reads above: the set of products changes far
+ * less often than their contents, and a missed new slug still renders — the
+ * route falls back to rendering on demand.
+ */
+export async function getProductSlugs(): Promise<string[]> {
+  return sanityFetch<string[]>({
+    query: PRODUCT_SLUGS_QUERY,
+    revalidate: 3600,
   });
 }

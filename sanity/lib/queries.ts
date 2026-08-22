@@ -60,3 +60,8 @@ export const PRODUCT_BY_SLUG_QUERY = groq`
     stock
   }
 `;
+
+/** Every product slug — for `generateStaticParams` on the detail route. */
+export const PRODUCT_SLUGS_QUERY = groq`
+  *[_type == "product" && defined(slug.current)].slug.current
+`;

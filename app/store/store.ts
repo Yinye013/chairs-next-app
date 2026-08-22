@@ -23,7 +23,12 @@ interface CartItems {
 }
 interface CartStore {
   cart: CartItems[];
-  addItem: (product: CartInput) => void;
+  /**
+   * Add `quantity` units (default 1). Adding N units is one state write and
+   * one toast — callers must never loop this to add several, which produced N
+   * toasts and N re-renders.
+   */
+  addItem: (product: CartInput, quantity?: number) => void;
   removeItem: (productId: string) => void;
   incrementQuantity: (productId: string) => void;
   decrementQuantity: (productId: string) => void;
@@ -46,7 +51,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
     }
   })(), //IIFE usage
   //JSON.parse(localStorage.getItem('cart') || '[]')
-  addItem: (product) => {
+  addItem: (product, quantity = 1) => {
+    // Guard against 0, negatives and fractions reaching the persisted cart —
+    // a bad quantity here would be written to localStorage and survive reloads.
+    const qty = Math.max(1, Math.floor(quantity));
+
     const cart = get().cart;
     const existingItem = cart.find((item: any) => item.id === product.id);
     let updatedCart;
@@ -54,13 +63,21 @@ export const useCartStore = create<CartStore>((set, get) => ({
     if (existingItem) {
       updatedCart = cart.map((item: any) =>
         item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: item.quantity + qty }
           : item,
       );
-      toast.success(`Increased quantity of "${product.title}" in your cart!`);
+      toast.success(
+        qty === 1
+          ? `Increased quantity of "${product.title}" in your cart!`
+          : `Added ${qty} more "${product.title}" to your cart!`,
+      );
     } else {
-      updatedCart = [...cart, { ...product, quantity: 1 }];
-      toast.success(`Added "${product.title}" to your cart!`);
+      updatedCart = [...cart, { ...product, quantity: qty }];
+      toast.success(
+        qty === 1
+          ? `Added "${product.title}" to your cart!`
+          : `Added ${qty} × "${product.title}" to your cart!`,
+      );
     }
 
     // Ensure local storage is updated

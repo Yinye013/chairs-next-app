@@ -4,22 +4,21 @@ import Signup from './_components/Signup';
 
 export default function SignUpPage() {
   return (
-    <div className="h-screen flex mt-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div className="flex items-center">
+    // Mirrors the login page — see the notes there. The sign-up form is the
+    // taller of the two, so min-h matters more here.
+    <div className="min-h-screen flex items-center justify-center py-[4.8rem]">
+      <div className="w-full max-w-[100rem] grid grid-cols-1 lg:grid-cols-2 gap-[3.2rem] lg:gap-[6.4rem] items-center">
+        <div className="hidden lg:flex items-center justify-center">
           <ClientLottie src="/animations/hello.json" />
         </div>
-        <div className="p-5">
-          <div className="mt-[6rem]">
-            <Logo />
-            <p className="mt-[2rem] text-[1.8rem] md:text-[1.4rem] mb-[3rem]">
-              Sign into your account
-            </p>
-          </div>
 
-          <div className="">
-            <Signup />
-          </div>
+        <div className="w-full max-w-[44rem] mx-auto lg:mx-0">
+          <Logo />
+          <p className="mt-[1.6rem] mb-[3.2rem] text-[1.6rem] text-[#6b6b6b]">
+            Sign into your account
+          </p>
+
+          <Signup />
         </div>
       </div>
     </div>

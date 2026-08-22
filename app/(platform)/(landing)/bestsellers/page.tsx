@@ -19,6 +19,7 @@ export default async function BestSellerPage({ searchParams }: PageProps) {
         </h1>
 
         <BestsellersControls
+          render="search"
           totalPages={totalPages}
           currentPage={currentPage}
           initialQuery={query}
@@ -32,11 +33,20 @@ export default async function BestSellerPage({ searchParams }: PageProps) {
             : 'No products yet. Add some in the studio.'}
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-[6rem] md:grid-cols-2 lg:grid-cols-3">
-          {items.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-[6rem] md:grid-cols-2 lg:grid-cols-3">
+            {items.map((product) => (
+              <ProductCard key={product.id} {...product} />
+            ))}
+          </div>
+
+          <BestsellersControls
+            render="pagination"
+            totalPages={totalPages}
+            currentPage={currentPage}
+            initialQuery={query}
+          />
+        </>
       )}
     </div>
   );
